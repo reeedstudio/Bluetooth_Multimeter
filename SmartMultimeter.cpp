@@ -86,12 +86,12 @@ void SmartMultimeter::init()
 *********************************************************************************************************/
 bool SmartMultimeter::adcIsInv()
 {
-    if(digitalRead(PINADCINV))
+    /*if(digitalRead(PINADCINV))
     {
         digitalWrite(13, LOW);
         return 0;
     }
-    digitalWrite(13, HIGH);
+    digitalWrite(13, HIGH);*/
     return 1;
 }
 
