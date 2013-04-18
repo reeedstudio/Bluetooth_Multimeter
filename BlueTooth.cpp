@@ -25,7 +25,6 @@
 
 void blueTooth_Init()
 {
-    //Serial.begin(38400); //Set BluetoothBee BaudRate to default baud rate 38400
     Serial.begin(38400);
     delay(500);
     setupBlueToothConnection();
