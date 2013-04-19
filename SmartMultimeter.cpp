@@ -33,7 +33,7 @@ Sleep sleep;
 #endif
 /*********************************************************************************************************
 ** Function name: init
-** Descriptions:  Initialize all variables and I/O pin
+** Descriptions:  Initialize all varampAdjustABles and I/O pin
 *********************************************************************************************************/
 void SmartMultimeter::init()
 {
@@ -69,13 +69,13 @@ void SmartMultimeter::init()
 
     for(int i = 0; i<2; i++)
     {
-        lsline(2, &xnI2A[2*i], &ynI2A[2*i], nIAB[i]);
-        lsline(2, &xI2A[2*i],  &yI2A[2*i],  IAB[i]);
+        lsline(2, &xnI2A[2*i], &ynI2A[2*i], ampAdjustAB_n[i]);
+        lsline(2, &xI2A[2*i],  &yI2A[2*i],  ampAdjustAB[i]);
     }
     for(int i = 0; i<4; i++)
     {
-        lsline(2, &xV[2*i], &ynV[2*i], nvAB[i]);
-        lsline(2, &xV[2*i], &yV[2*i], vAB[i]);
+        lsline(2, &xV[2*i], &ynV[2*i], vloAdjustAB_n[i]);
+        lsline(2, &xV[2*i], &yV[2*i], vloAdjustAB[i]);
     }
 
 }
@@ -86,12 +86,6 @@ void SmartMultimeter::init()
 *********************************************************************************************************/
 bool SmartMultimeter::adcIsInv()
 {
-    /*if(digitalRead(PINADCINV))
-    {
-        digitalWrite(13, LOW);
-        return 0;
-    }
-    digitalWrite(13, HIGH);*/
     return 1;
 }
 
@@ -170,7 +164,7 @@ void SmartMultimeter::quickSort(int a,int b, int *N)
     {
         pivot=Partition(a,b, N);
         quickSort(a,pivot-1, N);
-        quickSort(pivot+1,b, N);
+        quickSort(pivot+1, b, N);
     }
 }
 
@@ -201,7 +195,8 @@ void SmartMultimeter::genVol()
     }
     
     PRINTLN("**************");
-    PRINT("ch = ");PRINTLN(ch);
+    PRINT("ch = ");
+    PRINTLN(ch);
     
     if(A6 == pinAD)
     {
@@ -229,11 +224,11 @@ void SmartMultimeter::genVol()
     
     if(A7 == pinAD)
     {
-        vol = (vol - nvAB[adchvNum[ch]][0])/nvAB[adchvNum[ch]][1];
+        vol = (vol - vloAdjustAB_n[adchvNum[ch]][0])/vloAdjustAB_n[adchvNum[ch]][1];
     }
     else
     {
-        vol = (vol - vAB[adchvNum[ch]][0])/vAB[adchvNum[ch]][1];
+        vol = (vol - vloAdjustAB[adchvNum[ch]][0])/vloAdjustAB[adchvNum[ch]][1];
     }
    
     vol /= 1000.0;
@@ -297,15 +292,15 @@ void SmartMultimeter::genAmp()
             {
                 case ADCHA0:
                 
-                iGet = (iGet - IAB[1][0])/IAB[1][1];
+                iGet = (iGet - ampAdjustAB[1][0])/ampAdjustAB[1][1];
                 break;
                 
                 case ADCHA1:
-                iGet = (iGet - IAB[0][0])/IAB[0][1];
+                iGet = (iGet - ampAdjustAB[0][0])/ampAdjustAB[0][1];
                 break;
                 
                 case ADCHA2:
-                iGet = (iGet - IAB[0][0])/IAB[0][1];
+                iGet = (iGet - ampAdjustAB[0][0])/ampAdjustAB[0][1];
                 
                 break;
                 
@@ -320,15 +315,15 @@ void SmartMultimeter::genAmp()
             {
                 case ADCHA0:
                 
-                iGet = (iGet - nIAB[1][0])/nIAB[1][1];
+                iGet = (iGet - ampAdjustAB_n[1][0])/ampAdjustAB_n[1][1];
                 break;
                 
                 case ADCHA1:
-                iGet = (iGet - nIAB[0][0])/nIAB[0][1];
+                iGet = (iGet - ampAdjustAB_n[0][0])/ampAdjustAB_n[0][1];
                 break;
                 
                 case ADCHA2:
-                iGet = (iGet - nIAB[0][0])/nIAB[0][1];
+                iGet = (iGet - ampAdjustAB_n[0][0])/ampAdjustAB_n[0][1];
                 
                 break;
                 

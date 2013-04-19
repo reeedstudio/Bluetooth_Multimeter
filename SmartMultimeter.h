@@ -36,14 +36,14 @@ class SmartMultimeter
     unsigned char dtaSendBt[11];            // data send to bluetooth
     
     private:
-    float nvAB[4][2];
-    float vAB[4][2];
+    float vloAdjustAB_n[4][2];
+    float vloAdjustAB[4][2];
     
-    float nIAB[2][2];
-    float  IAB[2][2];
+    float ampAdjustAB_n[2][2];
+    float  ampAdjustAB[2][2];
     
-    float nmIAB[2][2];
-    float  mIAB[2][2];
+    float mAmpAdjustAB_n[2][2];
+    float  mAmpAdjustAB[2][2];
     
     public:
 
