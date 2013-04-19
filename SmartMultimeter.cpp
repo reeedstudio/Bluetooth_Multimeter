@@ -74,8 +74,8 @@ void SmartMultimeter::init()
     }
     for(int i = 0; i<4; i++)
     {
-        lsline(2, &xV[2*i], &ynV[2*i], vloAdjustAB_n[i]);
-        lsline(2, &xV[2*i], &yV[2*i], vloAdjustAB[i]);
+        lsline(2, &xV[2*i], &ynV[2*i], volAdjustAB_n[i]);
+        lsline(2, &xV[2*i], &yV[2*i], volAdjustAB[i]);
     }
 
 }
@@ -224,11 +224,11 @@ void SmartMultimeter::genVol()
     
     if(A7 == pinAD)
     {
-        vol = (vol - vloAdjustAB_n[adchvNum[ch]][0])/vloAdjustAB_n[adchvNum[ch]][1];
+        vol = (vol - volAdjustAB_n[adchvNum[ch]][0])/volAdjustAB_n[adchvNum[ch]][1];
     }
     else
     {
-        vol = (vol - vloAdjustAB[adchvNum[ch]][0])/vloAdjustAB[adchvNum[ch]][1];
+        vol = (vol - volAdjustAB[adchvNum[ch]][0])/volAdjustAB[adchvNum[ch]][1];
     }
    
     vol /= 1000.0;
