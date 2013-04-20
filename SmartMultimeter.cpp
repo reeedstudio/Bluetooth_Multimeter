@@ -57,26 +57,7 @@ void SmartMultimeter::init()
         pinMode(i, OUTPUT);
         digitalWrite(i, LOW);
     }
-    int xV[8] = {100, 1200, 1300, 3700, 3800, 13700, 14000, 30000};
-    float ynV[8] = {106, 1210, 1220, 3660, 3480, 13360, 13480, 29480};
-    float yV[8]  = { 88, 1180, 1380, 3800, 3900, 13800, 14100, 30100};
-    
-    int xnI2A[4]    = {50, 230, 250, 2000};
-    float ynI2A[4]  = {45, 236, 225, 2070};
-    
-    int xI2A[4]     = {50, 200, 250, 2000};
-    float yI2A[4]   = {55, 212, 259, 2090};
 
-    for(int i = 0; i<2; i++)
-    {
-        lsline(2, &xnI2A[2*i], &ynI2A[2*i], ampAdjustAB_n[i]);
-        lsline(2, &xI2A[2*i],  &yI2A[2*i],  ampAdjustAB[i]);
-    }
-    for(int i = 0; i<4; i++)
-    {
-        lsline(2, &xV[2*i], &ynV[2*i], volAdjustAB_n[i]);
-        lsline(2, &xV[2*i], &yV[2*i], volAdjustAB[i]);
-    }
 
 }
 

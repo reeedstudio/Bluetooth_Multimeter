@@ -36,14 +36,7 @@ class SmartMultimeter
     unsigned char dtaSendBt[11];            // data send to bluetooth
     
     private:
-    float volAdjustAB_n[4][2];
-    float volAdjustAB[4][2];
-    
-    float ampAdjustAB_n[2][2];
-    float  ampAdjustAB[2][2];
-    
-    float mAmpAdjustAB_n[2][2];
-    float  mAmpAdjustAB[2][2];
+
     
     public:
 
@@ -55,7 +48,7 @@ class SmartMultimeter
     void quickSort(int a,int b, int *N);    // quick sort
     int readADC(int pinAD);
     int readADC(int pinAD, int ch);
-    void lsline(int n, int *x, float *y, float a[2]);
+    
     
     public:
     void init();
