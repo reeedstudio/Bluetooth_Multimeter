@@ -135,6 +135,7 @@ unsigned char AdjustManage::volAdjust(unsigned char sign, unsigned char ch, floa
 *********************************************************************************************************/
 unsigned char AdjustManage::ampAdjust(unsigned char sign, unsigned char ch, float *dta)
 {
+    IFADJUSTED;
 /*
         if(A6 == pinAD)
         {

@@ -143,7 +143,7 @@ void loop()
             SmartVom.genAVR();
             dispBtDta();
             blueToothSend(11, SmartVom.dtaSendBt);
-          
+            
             digitalWrite(13, HIGH);
             delay(10);
             digitalWrite(13, LOW);
