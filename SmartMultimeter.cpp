@@ -203,7 +203,7 @@ void SmartMultimeter::genVol()
 
     unsigned char adchvNum[4] = {1, 3, 0, 2};
     
-    if(A7 == pinAD)
+    if(A7 == pinAD)     // adjust
     {
         vol = (vol - volAdjustAB_n[adchvNum[ch]][0])/volAdjustAB_n[adchvNum[ch]][1];
     }

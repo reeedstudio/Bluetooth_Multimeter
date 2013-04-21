@@ -28,7 +28,7 @@
 
 #include "SmartMultimeter.h"
 #include "BlueTooth.h"
-#include "SmartMultimeter_dfs.h"
+#include "BTMGlobalDfs.h"
 
 #define TESTWITHOUTBT   0       // test without bluetooth
 

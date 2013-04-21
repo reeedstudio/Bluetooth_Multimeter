@@ -1,11 +1,11 @@
 /*
-  SmartMultimeter_dfs.h
-  2012 Copyright (c) Seeed Technology Inc.  All right reserved.
-
+  BTMGlobalDfs.h
+  2013 Copyright (c) Seeed Technology Inc.  All right reserved.
+ 
   Author: 
   Hardware: Albert Miao 
   Firmware: Loovee
-
+  
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
   License as published by the Free Software Foundation; either
@@ -20,8 +20,8 @@
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef _SMARTMULTIMETER_DFS_
-#define _SMARTMULTIMETER_DFS_
+#ifndef __BTMGLOBALDFS_H__
+#define __BTMGLOBALDFS_H__
 
 #define __DEBUG_I2C     0
 
@@ -141,6 +141,9 @@
 #define BUTTONBVAL      360
 #define BUTTONFVAL      650
 #define BUTTONBFVAL     250
+
+
+
 
 #endif
 /*********************************************************************************************************
