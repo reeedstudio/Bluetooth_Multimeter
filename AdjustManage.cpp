@@ -21,6 +21,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include "AdjustManage.h"
+#include "BTMGlobalDfs.h"
+
 /*********************************************************************************************************
 ** Function name: init
 ** Descriptions:  init
@@ -80,6 +82,26 @@ void AdjustManage::lsline(int n, int *x, float *y, float a[2])
     a[0] = ave_y - a[1]*ave_x;
 }
 
+/*********************************************************************************************************
+** Function name: volAdjust
+** Descriptions:  vol test adjust
+*********************************************************************************************************/
+void AdjustManage::volAdjust(unsigned char sign, unsigned char ch, float *dta)
+{
+    return;
+}
+
+/*********************************************************************************************************
+** Function name: ampAdjust
+** Descriptions:  amp test adjust
+*********************************************************************************************************/
+void AdjustManage::ampAdjust(unsigned char sign, unsigned char ch, float *dta)
+{
+    return;
+}
+
+
+AdjustManage BTMADJUST;
 
 
 /*********************************************************************************************************

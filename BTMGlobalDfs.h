@@ -142,7 +142,9 @@
 #define BUTTONFVAL      650
 #define BUTTONBFVAL     250
 
-
+//
+#define PSIGN           A6      // Positive sign
+#define NSIGN           A7      // Negative sign
 
 
 #endif

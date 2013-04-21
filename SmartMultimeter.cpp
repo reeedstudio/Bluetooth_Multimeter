@@ -27,6 +27,7 @@
 #include <I2C_Uart.h>
 
 #include "SmartMultimeter.h"
+#include "AdjustManage.h"
 
 #if SLEEP_MODE
 Sleep sleep;
@@ -202,7 +203,7 @@ void SmartMultimeter::genVol()
     vol *= 1000.0;
 
     unsigned char adchvNum[4] = {1, 3, 0, 2};
-    
+ /*   
     if(A7 == pinAD)     // adjust
     {
         vol = (vol - volAdjustAB_n[adchvNum[ch]][0])/volAdjustAB_n[adchvNum[ch]][1];
@@ -211,7 +212,8 @@ void SmartMultimeter::genVol()
     {
         vol = (vol - volAdjustAB[adchvNum[ch]][0])/volAdjustAB[adchvNum[ch]][1];
     }
-   
+*/
+    BTMADJUST.volAdjust(pinAD, ch, &vol);
     vol /= 1000.0;
 
     vol = abs(vol);
@@ -266,7 +268,7 @@ void SmartMultimeter::genAmp()
         iGet = v1/0.499;
         
         iGet *= 1000.0;
-        
+/*     
         if(A6 == pinAD)
         {
             switch(ch)
@@ -313,7 +315,8 @@ void SmartMultimeter::genAmp()
                 ;
             }
         }
-        
+*/
+        BTMADJUST.ampAdjust(pinAD, ch, &iGet);
         iGet /= 1000.0;
     }
 
@@ -487,36 +490,6 @@ int SmartMultimeter::readADC(int pinAD, int ch)
     }
 
     return sum>>4;
-}
-
-/*********************************************************************************************************
-** Function name: lsline
-** Descriptions:  The method of least squares linear fitting algorithm
-*********************************************************************************************************/
-void SmartMultimeter::lsline(int n, int *x, float *y, float a[2])
-{
-    float ave_x = 0;
-    float ave_y = 0;
-    float sumx2 = 0;
-    float sumxy = 0;;
-
-    for(int i = 0; i<n; i++)
-    {
-        ave_x += x[i];
-        ave_y += y[i];
-    }
-
-    ave_x = ave_x/n;
-    ave_y = ave_y/n;
-
-    for(int i = 0; i<n; i++)
-    {
-        sumx2 += (x[i] - ave_x) * (x[i] - ave_x);
-        sumxy += (y[i] - ave_y) * (x[i] - ave_x);
-    }
-
-    a[1] = (float)sumxy/(float)sumx2;
-    a[0] = ave_y - a[1]*ave_x;
 }
 
 /*********************************************************************************************************

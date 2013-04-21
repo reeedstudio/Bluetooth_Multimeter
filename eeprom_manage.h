@@ -36,6 +36,7 @@ public:
     unsigned char e2prom_read(int addr,void *buffer,int len);
 };
 
+extern eeprom_manage  EEPROMMANAGE;
 #endif
 /*********************************************************************************************************
   END FILE

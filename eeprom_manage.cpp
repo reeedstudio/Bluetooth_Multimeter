@@ -22,6 +22,7 @@
 */
 #include <EEPROM.h>
 #include "eeprom_manage.h"
+#include "BTMGlobalDfs.h"
 
 /*********************************************************************************************************
 ** Function name: init
@@ -92,6 +93,7 @@ unsigned char eeprom_manage::e2prom_read(int addr,void *buffer,int len)
 	return len;
 }
 
+eeprom_manage  EEPROMMANAGE;
 /*********************************************************************************************************
   END FILE
 *********************************************************************************************************/

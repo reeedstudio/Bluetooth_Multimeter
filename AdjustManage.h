@@ -38,9 +38,12 @@ private:
 public:
     void init();
     void lsline(int n, int *x, float *y, float a[2]);
+    void volAdjust(unsigned char sign, unsigned char ch, float *dta);
+    void ampAdjust(unsigned char sign, unsigned char ch, float *dta);
  
 };
 
+extern AdjustManage BTMADJUST;
 #endif
 /*********************************************************************************************************
   END FILE
