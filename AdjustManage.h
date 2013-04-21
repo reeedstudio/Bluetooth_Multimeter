@@ -1,7 +1,7 @@
 /*
   AdjustManage.h
   2013 Copyright (c) Seeed Technology Inc.  All right reserved.
- 
+
   Author: 
   Hardware: Albert Miao 
   Firmware: Loovee
@@ -26,15 +26,16 @@
 class AdjustManage
 {
 private:
-    float volAdjustAB_n[4][2];
+
     float volAdjustAB[4][2];
-    
+    float volAdjustAB_n[4][2];
+
+    float ampAdjustAB[2][2];
     float ampAdjustAB_n[2][2];
-    float  ampAdjustAB[2][2];
-    
+
+    float mAmpAdjustAB[2][2];    
     float mAmpAdjustAB_n[2][2];
-    float  mAmpAdjustAB[2][2];
-    
+
 public:
     void init();
     void lsline(int n, int *x, float *y, float a[2]);

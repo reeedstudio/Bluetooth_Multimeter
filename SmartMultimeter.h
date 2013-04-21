@@ -24,8 +24,6 @@
 #ifndef _SMARTMULTIMETER_H_
 #define _SMARTMULTIMETER_H_
 
-#include "SmartMultimeter_dfs.h"
-
 class SmartMultimeter
 {
     public:

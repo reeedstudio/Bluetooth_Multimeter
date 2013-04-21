@@ -30,11 +30,14 @@
 *********************************************************************************************************/
 unsigned char eeprom_manage::init()
 {
-
+/*
 	for(int i=0; i<256; i++)
 	EEPROM.write(i, 0xff);
 	return 0;
-	
+*/
+    dtaI2cLen = 0;
+    getDtaI2c = 0;
+
 }
 
 /*********************************************************************************************************
@@ -62,10 +65,10 @@ unsigned char eeprom_manage::e2prom_get(int addr)
 }
 
 /*********************************************************************************************************
-** Function name: e2prom_write
+** Function name: write
 ** Descriptions:  write a float(int ...) to eeprom
 *********************************************************************************************************/
-unsigned char eeprom_manage::e2prom_write(int addr,void *buffer,int len)
+unsigned char eeprom_manage::write(int addr,void *buffer,int len)
 {
 	int sum = 0;
 	unsigned char *ch = (unsigned char*)buffer;
@@ -77,11 +80,12 @@ unsigned char eeprom_manage::e2prom_write(int addr,void *buffer,int len)
 }
 
 /*********************************************************************************************************
-** Function name: e2prom_read
+** Function name: read
 ** Descriptions:  read a float(int...) from eeprom
 *********************************************************************************************************/
-unsigned char eeprom_manage::e2prom_read(int addr,void *buffer,int len)
+unsigned char eeprom_manage::read(int addr,void *buffer,int len)
 {
+
 	unsigned char *ch;
 	if(addr>=256 || addr<0)
 		return 0;
@@ -91,9 +95,25 @@ unsigned char eeprom_manage::e2prom_read(int addr,void *buffer,int len)
 	for(int i=0;i<len;i++)
 		ch[i] = e2prom_get(addr+i);
 	return len;
+    
 }
 
-eeprom_manage  EEPROMMANAGE;
+/*********************************************************************************************************
+** Function name: read
+** Descriptions:  read a float(int...) from eeprom
+*********************************************************************************************************/
+unsigned char eeprom_manage::putDta(int addrs, int len, unsigned char *dta)
+{
+    if(len <= 0)return 0;
+    
+    for(int i = 0; i<=len; i++)
+    {
+        EEPROM.write(addrs+i, dta[i]);
+    }
+    return 1;
+}
+
+eeprom_manage  EEPM;
 /*********************************************************************************************************
   END FILE
 *********************************************************************************************************/

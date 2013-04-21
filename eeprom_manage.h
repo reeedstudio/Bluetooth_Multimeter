@@ -25,6 +25,10 @@
 
 class eeprom_manage
 {
+public:
+    unsigned char dtaI2c[50];
+    unsigned char dtaI2cLen;
+    unsigned char getDtaI2c;
 
 private:
     unsigned char e2prom_set(int addr,unsigned char dat);
@@ -32,11 +36,12 @@ private:
  
 public:
     unsigned char init();
-    unsigned char e2prom_write(int addr,void *buffer,int len);
-    unsigned char e2prom_read(int addr,void *buffer,int len);
+    unsigned char write(int addr,void *buffer,int len);
+    unsigned char read(int addr,void *buffer,int len);
+    unsigned char putDta(int addrs, int len, unsigned char *dta);
 };
 
-extern eeprom_manage  EEPROMMANAGE;
+extern eeprom_manage  EEPM;
 #endif
 /*********************************************************************************************************
   END FILE

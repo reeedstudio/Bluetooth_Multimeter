@@ -29,6 +29,7 @@
 #include "SmartMultimeter.h"
 #include "BlueTooth.h"
 #include "BTMGlobalDfs.h"
+#include "eeprom_manage.h"
 
 #define TESTWITHOUTBT   0       // test without bluetooth
 
@@ -63,10 +64,10 @@ void dispBtDta()
 }
 
 /*********************************************************************************************************
-** Function name: checkGoodDta
+** Function name: checkGoodDtaUart
 ** Descriptions:  check if bluetooth get good data
 *********************************************************************************************************/
-bool checkGoodDta(unsigned char *dta)
+bool checkGoodDtaUart(unsigned char *dta)
 {
 
     if(recvDtaLen == 7 && dta[0] == DATASTART1 && dta[1] == DATASTART2 &&dta[2] == 1 &&dta[4] == 0 && dta[5] == DATAEND1 && dta[6] == DATAEND2)
@@ -76,6 +77,35 @@ bool checkGoodDta(unsigned char *dta)
     return 0;
 
 }
+
+/*********************************************************************************************************
+** Function name: i2cDtaProc
+** Descriptions:  check if i2c get good data
+*********************************************************************************************************/
+bool i2cDtaProc()
+{
+
+    if(!EEPM.getDtaI2c)return 0;
+    getDtaI2c = 0;
+    
+    int offset = 0;
+    for(offset=0; offset<EEPM.dtaI2cLen; offset++)
+    {
+        if(EEPM.dtaI2c[offset] == START1 && EEPM.dtaI2c[offset] == START2)
+        {
+            break;
+        }
+    }
+    
+    offset += 2;
+
+    EEPM.dtaI2cLen = 0;
+    return EEPM.putDta(EEPM.dtaI2c[offset], EEPM.dtaI2c[offset], &EEPM.dtaI2c[offset+2]);
+
+}
+
+
+
 
 /*********************************************************************************************************
 ** Function name: setup
@@ -88,12 +118,16 @@ void setup()
     delay(10);
     PRINTLN("I2C INIT OVER!!");
 #endif
+
     SmartVom.init();
     blueTooth_Init();
     PRINTLN("BLUETOOTH CONNECTED!!");
     recvDtaLen = 0;
     PRINTLN("ALL INIT OVER!!");
-
+    
+    Wire.begin(5);                
+    Wire.onReceive(receiveEvent); 
+    
 }
 
 /*********************************************************************************************************
@@ -104,7 +138,7 @@ void loop()
 {
 
     if(getBtDta) {
-        if(checkGoodDta(SmartVom.dtaRevBt))
+        if(checkGoodDtaUart(SmartVom.dtaRevBt))
         {
             SmartVom.genAVR();
             dispBtDta();
@@ -118,6 +152,7 @@ void loop()
         getBtDta   = false;
     }
 
+    i2cDtaProc();           // for adjustment;
     delay(1);
     
 }
@@ -142,6 +177,23 @@ void serialEvent()
             getBtDta = false;
         }
     }
+}
+
+/*********************************************************************************************************
+** Function name: serialEvent
+** Descriptions:  setial Event, get Serial data
+*********************************************************************************************************/
+void receiveEvent(int howMany)
+{
+    while(0 < Wire.available()) // loop through all but the last
+    {
+        EEPM.dtaI2c[EEPM.dtaI2cLen++] = (unsigned char)Wire.read();
+        if(EEPM.dtaI2c[EEPM.dtaI2cLen-2] == END1 && EEPM.dtaI2c[EEPM.dtaI2cLen-1] == END2)
+        {
+            EEPM.getDtaI2c = 1;
+        }
+    }
+
 }
 /*********************************************************************************************************
   END FILE

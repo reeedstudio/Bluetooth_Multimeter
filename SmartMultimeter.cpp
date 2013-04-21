@@ -26,6 +26,7 @@
 #include <Sleep_n0m1.h>
 #include <I2C_Uart.h>
 
+#include "BTMGlobalDfs.h"
 #include "SmartMultimeter.h"
 #include "AdjustManage.h"
 
@@ -202,17 +203,7 @@ void SmartMultimeter::genVol()
     
     vol *= 1000.0;
 
-    unsigned char adchvNum[4] = {1, 3, 0, 2};
- /*   
-    if(A7 == pinAD)     // adjust
-    {
-        vol = (vol - volAdjustAB_n[adchvNum[ch]][0])/volAdjustAB_n[adchvNum[ch]][1];
-    }
-    else
-    {
-        vol = (vol - volAdjustAB[adchvNum[ch]][0])/volAdjustAB[adchvNum[ch]][1];
-    }
-*/
+    
     BTMADJUST.volAdjust(pinAD, ch, &vol);
     vol /= 1000.0;
 
@@ -268,54 +259,7 @@ void SmartMultimeter::genAmp()
         iGet = v1/0.499;
         
         iGet *= 1000.0;
-/*     
-        if(A6 == pinAD)
-        {
-            switch(ch)
-            {
-                case ADCHA0:
-                
-                iGet = (iGet - ampAdjustAB[1][0])/ampAdjustAB[1][1];
-                break;
-                
-                case ADCHA1:
-                iGet = (iGet - ampAdjustAB[0][0])/ampAdjustAB[0][1];
-                break;
-                
-                case ADCHA2:
-                iGet = (iGet - ampAdjustAB[0][0])/ampAdjustAB[0][1];
-                
-                break;
-                
-                default:
-                
-                ;
-            }
-        }
-        else if(A7 == pinAD)
-        {
-            switch(ch)
-            {
-                case ADCHA0:
-                
-                iGet = (iGet - ampAdjustAB_n[1][0])/ampAdjustAB_n[1][1];
-                break;
-                
-                case ADCHA1:
-                iGet = (iGet - ampAdjustAB_n[0][0])/ampAdjustAB_n[0][1];
-                break;
-                
-                case ADCHA2:
-                iGet = (iGet - ampAdjustAB_n[0][0])/ampAdjustAB_n[0][1];
-                
-                break;
-                
-                default:
-                
-                ;
-            }
-        }
-*/
+
         BTMADJUST.ampAdjust(pinAD, ch, &iGet);
         iGet /= 1000.0;
     }
