@@ -24,7 +24,8 @@
 #include <I2C_Uart.h>
 #include <Sleep_n0m1.h>
 #include <TimerOne.h>
- 
+#include <EEPROM.h>
+
 #include "SmartMultimeter.h"
 #include "BlueTooth.h"
 #include "SmartMultimeter_dfs.h"
