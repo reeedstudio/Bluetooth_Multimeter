@@ -27,6 +27,7 @@ class AdjustManage
 {
 private:
 
+    unsigned char ifAdjust;
     float volAdjustAB[4][2];
     float volAdjustAB_n[4][2];
 
@@ -39,8 +40,8 @@ private:
 public:
     void init();
     void lsline(int n, int *x, float *y, float a[2]);
-    void volAdjust(unsigned char sign, unsigned char ch, float *dta);
-    void ampAdjust(unsigned char sign, unsigned char ch, float *dta);
+    unsigned char volAdjust(unsigned char sign, unsigned char ch, float *dta);
+    unsigned char ampAdjust(unsigned char sign, unsigned char ch, float *dta);
  
 };
 

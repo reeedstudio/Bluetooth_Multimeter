@@ -171,7 +171,9 @@
 #define EEPADDRVOLY     EEPADDRVOLX+16
 #define EEPADDRVOLY_N   EEPADDRVOLY+32
 
-
+//
+#define IFADJUSTED      if(ifAdjust != 0x55)return 0
+                        
 
 
 #endif

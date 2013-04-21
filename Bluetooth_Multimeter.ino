@@ -86,7 +86,7 @@ bool i2cDtaProc()
 {
 
     if(!EEPM.getDtaI2c)return 0;
-    getDtaI2c = 0;
+    EEPM.getDtaI2c = 0;
     
     int offset = 0;
     for(offset=0; offset<EEPM.dtaI2cLen; offset++)

@@ -21,6 +21,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include <Arduino.h>
+#include <EEPROM.h>
 
 #include "AdjustManage.h"
 #include "BTMGlobalDfs.h"
@@ -54,6 +55,13 @@ void AdjustManage::init()
     int volX[8];
     float volY[8];
     float volY_n[8];
+    
+    ifAdjust = EEPROM.read(1);
+    
+    if(ifAdjust != 0x55)
+    {
+        return ;
+    }
     
     for(int i = 0; i<8; i++)
     {
@@ -104,9 +112,9 @@ void AdjustManage::lsline(int n, int *x, float *y, float a[2])
 ** Function name: volAdjust
 ** Descriptions:  vol test adjust
 *********************************************************************************************************/
-void AdjustManage::volAdjust(unsigned char sign, unsigned char ch, float *dta)
+unsigned char AdjustManage::volAdjust(unsigned char sign, unsigned char ch, float *dta)
 {
-
+    IFADJUSTED;
     unsigned char adchvNum[4] = {1, 3, 0, 2};
     if(NSIGN == sign)     // adjust
     {
@@ -116,6 +124,8 @@ void AdjustManage::volAdjust(unsigned char sign, unsigned char ch, float *dta)
     {
         *dta = (*dta - volAdjustAB[adchvNum[ch]][0])/volAdjustAB[adchvNum[ch]][1];
     }
+    
+    return 1;
 
 }
 
@@ -123,7 +133,7 @@ void AdjustManage::volAdjust(unsigned char sign, unsigned char ch, float *dta)
 ** Function name: ampAdjust
 ** Descriptions:  amp test adjust
 *********************************************************************************************************/
-void AdjustManage::ampAdjust(unsigned char sign, unsigned char ch, float *dta)
+unsigned char AdjustManage::ampAdjust(unsigned char sign, unsigned char ch, float *dta)
 {
 /*
         if(A6 == pinAD)
