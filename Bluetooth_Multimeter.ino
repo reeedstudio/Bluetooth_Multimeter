@@ -75,11 +75,8 @@ bool i2cDtaProc()
     
     EEPM.dtaI2cLen = 0;
     return EEPM.putDta(EEPM.dtaI2c[offset], EEPM.dtaI2c[offset], &EEPM.dtaI2c[offset+2]);
-
+    
 }
-
-
-
 
 /*********************************************************************************************************
 ** Function name: setup
@@ -92,7 +89,7 @@ void setup()
     delay(10);
     PRINTLN("I2C INIT OVER!!");
 #endif
-
+    
     SmartVom.init();
     blueTooth_Init();
     PRINTLN("BLUETOOTH CONNECTED!!");
@@ -124,7 +121,7 @@ void loop()
         recvDtaLen = 0;
         getBtDta   = false;
     }
-
+    
     i2cDtaProc();           // for adjustment;
     delay(1);
     
@@ -166,7 +163,7 @@ void receiveEvent(int howMany)
             EEPM.getDtaI2c = 1;
         }
     }
-
+    
 }
 /*********************************************************************************************************
   END FILE

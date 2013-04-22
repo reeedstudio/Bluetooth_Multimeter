@@ -106,7 +106,7 @@ unsigned char eeprom_manage::putDta(int addrs, int len, unsigned char *dta)
 {
     if(len <= 0)return 0;
     
-    for(int i = 0; i<=len; i++)
+    for(int i = 0; i<len; i++)
     {
         EEPROM.write(addrs+i, dta[i]);
     }
