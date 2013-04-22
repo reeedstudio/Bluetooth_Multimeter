@@ -38,32 +38,6 @@ unsigned char recvDtaLen    = 0;
 unsigned char flagSleep     = 0;
 
 /*********************************************************************************************************
-** Function name: dispBtDta
-** Descriptions:  display get data
-*********************************************************************************************************/
-void dispBtDta()
-{  
-#if __DEBUG_I2C
-    unsigned int tmp = 0;
-    tmp  =  SmartVom.dtaSendBt[DTASENDBTN1];
-    tmp  =  tmp<<8;
-    tmp  |= SmartVom.dtaSendBt[DTASENDBTN2];
-    float n = (float)tmp;
-    n += (float)SmartVom.dtaSendBt[DTASENDBTF]/100;
-    
-    if(SmartVom.dtaSendBt[DTASENDBTUNIT] > 10)
-    {
-        __print("-");
-    }
-    putFloat(n);
-    
-    char s[][5] = {" mV", " V", " mA", " A", " R", " KR", " MR"};
-    
-    __println(s[SmartVom.dtaSendBt[DTASENDBTUNIT]%0x80-1]);
-#endif    
-}
-
-/*********************************************************************************************************
 ** Function name: checkGoodDtaUart
 ** Descriptions:  check if bluetooth get good data
 *********************************************************************************************************/
@@ -98,7 +72,7 @@ bool i2cDtaProc()
     }
     
     offset += 2;
-
+    
     EEPM.dtaI2cLen = 0;
     return EEPM.putDta(EEPM.dtaI2c[offset], EEPM.dtaI2c[offset], &EEPM.dtaI2c[offset+2]);
 
@@ -141,7 +115,6 @@ void loop()
         if(checkGoodDtaUart(SmartVom.dtaRevBt))
         {
             SmartVom.genAVR();
-            dispBtDta();
             blueToothSend(11, SmartVom.dtaSendBt);
             
             digitalWrite(13, HIGH);
