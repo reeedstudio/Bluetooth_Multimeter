@@ -58,24 +58,10 @@ bool checkGoodDtaUart(unsigned char *dta)
 *********************************************************************************************************/
 bool i2cDtaProc()
 {
-
     if(!EEPM.getDtaI2c)return 0;
     EEPM.getDtaI2c = 0;
-    
-    int offset = 0;
-    for(offset=0; offset<EEPM.dtaI2cLen; offset++)
-    {
-        if(EEPM.dtaI2c[offset] == START1 && EEPM.dtaI2c[offset] == START2)
-        {
-            break;
-        }
-    }
-    
-    offset += 2;
-    
     EEPM.dtaI2cLen = 0;
-    return EEPM.putDta(EEPM.dtaI2c[offset], EEPM.dtaI2c[offset], &EEPM.dtaI2c[offset+2]);
-    
+    return EEPM.putDta(EEPM.dtaI2c[2], EEPM.dtaI2c[3], &EEPM.dtaI2c[4]);
 }
 
 /*********************************************************************************************************
