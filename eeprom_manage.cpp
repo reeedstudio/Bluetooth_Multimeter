@@ -40,6 +40,7 @@ unsigned char eeprom_manage::init()
 *********************************************************************************************************/
 unsigned char eeprom_manage::e2prom_set(int addr,unsigned char dat)
 {
+
 	if(addr>=256 || addr<0)
 		return 0;
     EEPROM.write(addr, dat);
@@ -52,6 +53,7 @@ unsigned char eeprom_manage::e2prom_set(int addr,unsigned char dat)
 *********************************************************************************************************/
 unsigned char eeprom_manage::e2prom_get(int addr)
 {
+
 	char dat;
 	if(addr>=256 || addr<0)
 		return 0;
@@ -64,6 +66,7 @@ unsigned char eeprom_manage::e2prom_get(int addr)
 *********************************************************************************************************/
 unsigned char eeprom_manage::write(int addr,void *buffer,int len)
 {
+
 	int sum = 0;
 	unsigned char *ch = (unsigned char*)buffer;
 	for(int i=0; i<len; i++)

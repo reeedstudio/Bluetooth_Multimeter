@@ -114,7 +114,7 @@ void serialEvent()
     while (Serial.available()) {
         // get the new byte:
         SmartVom.dtaRevBt[recvDtaLen++] = (unsigned char)Serial.read();
-
+        
         if(SmartVom.dtaRevBt[recvDtaLen-1] == DATAEND2 && SmartVom.dtaRevBt[recvDtaLen-2] == DATAEND1) {
             getBtDta = true;
         }
