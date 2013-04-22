@@ -25,6 +25,16 @@
 
 #include <Arduino.h>
 
+#define __Debug         0
+
+#if __Debug
+#define __print(X)      Serial.print(X)
+#define __println(X)    Serial.println(X)
+#else
+#define __print(X)
+#define __println(X)
+#endif
+
 #define SLEEP_MODE      0
 #define FRESHRATE       300             // ms
 
@@ -33,15 +43,15 @@
 #define MERGEMAX        20
 #define AVETIME         200
 
-#define DATASTART1          0x53
-#define DATASTART2          0x00
-#define DATAEND1            0x2f
-#define DATAEND2            0x45
+#define DATASTART1      0x53
+#define DATASTART2      0x00
+#define DATAEND1        0x2f
+#define DATAEND2        0x45
 //pin define
-#define PINADCINV       2       // 
-#define PINSWS0         5       // 74hc4051 s0
-#define PINSWS1         6       // 74hc4051 s1
-#define PINSWS2         7       // 74hc4051 s2
+#define PINADCINV       2               // 
+#define PINSWS0         5               // 74hc4051 s0
+#define PINSWS1         6               // 74hc4051 s1
+#define PINSWS2         7               // 74hc4051 s2
 
 #define PINR1           8
 #define PINR2           9
