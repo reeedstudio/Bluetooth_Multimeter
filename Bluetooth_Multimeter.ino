@@ -70,17 +70,9 @@ bool i2cDtaProc()
 *********************************************************************************************************/
 void setup()
 {
-#if __DEBUG_I2C
-    I2C_Uart_Init();
-    delay(10);
-    PRINTLN("I2C INIT OVER!!");
-#endif
-    
     SmartVom.init();
     blueTooth_Init();
-    PRINTLN("BLUETOOTH CONNECTED!!");
     recvDtaLen = 0;
-    PRINTLN("ALL INIT OVER!!");
     
     Wire.begin(5);                
     Wire.onReceive(receiveEvent); 

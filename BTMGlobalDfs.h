@@ -25,16 +25,6 @@
 
 #include <Arduino.h>
 
-#define __DEBUG_I2C     0
-
-#if __DEBUG_I2C
-#define PRINT(X)        __print(X)
-#define PRINTLN(X)      __println(X)
-#else
-#define PRINT(X)
-#define PRINTLN(X)
-#endif
-
 #define SLEEP_MODE      0
 #define FRESHRATE       300             // ms
 

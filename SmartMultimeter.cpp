@@ -82,7 +82,7 @@ void SmartMultimeter::genDtaBt(float dta, unsigned char rType, unsigned char uni
     unsigned int iR =   (unsigned int)dta;          // Integer
     float fR = (float)(dta - iR);
     unsigned char ifR = (unsigned char)(100*fR);    // float
-    PRINT("unit = ");PRINTLN(unit);
+
     dtaSendBt[DTASENDBTLEN]     =   5;
     dtaSendBt[DTASENDBTTYPE]    =   rType;
     dtaSendBt[DTASENDBTN1]      =   iR>>8;
@@ -176,19 +176,7 @@ void SmartMultimeter::genVol()
     {
         ch = ADCHV4;
     }
-    
-    PRINTLN("**************");
-    PRINT("ch = ");
-    PRINTLN(ch);
-    
-    if(A6 == pinAD)
-    {
-        PRINTLN("A6");
-    }
-    else
-    {
-        PRINTLN(A7);
-    }
+
     setSwitch(ch);                                  // set chanel
 
     int valAD = readADC(pinAD);
@@ -444,10 +432,8 @@ int SmartMultimeter::readADC(int pinAD, int ch)
 void SmartMultimeter::sleepMode()
 {
     int sleepTime = FRESHRATE - 100;
-    PRINTLN("goto sleep!");
     sleep.pwrDownMode();            //set sleep mode pwrDownMode idleMode
     sleep.sleepDelay(sleepTime);    //sleep for: sleepTime
-    PRINTLN("awake!");
 }
 #endif
 
