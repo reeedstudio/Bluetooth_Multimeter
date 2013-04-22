@@ -30,6 +30,7 @@
 #include "BlueTooth.h"
 #include "BTMGlobalDfs.h"
 #include "eeprom_manage.h"
+#include "AdjustManage.h"
 
 #define TESTWITHOUTBT   0       // test without bluetooth
 
@@ -71,6 +72,12 @@ bool i2cDtaProc()
 void setup()
 {
     SmartVom.init();
+    
+    Serial.begin(38400);
+    Serial.println("hello world");
+    BTMADJUST.init();
+    while(1);
+    
     blueTooth_Init();
     recvDtaLen = 0;
     

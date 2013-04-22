@@ -36,9 +36,12 @@ private:
 
     float mAmpAdjustAB[2][2];    
     float mAmpAdjustAB_n[2][2];
+    
+    float ohmAdjustAB[4][2];
 
 public:
     void init();
+    void lsline(int n, long *x, float *y, float a[2]);
     void lsline(int n, int *x, float *y, float a[2]);
     unsigned char volAdjust(unsigned char sign, unsigned char ch, float *dta);
     unsigned char ampAdjust(unsigned char sign, unsigned char ch, float *dta);

@@ -21,6 +21,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include <EEPROM.h>
+
 #include "eeprom_manage.h"
 #include "BTMGlobalDfs.h"
 
