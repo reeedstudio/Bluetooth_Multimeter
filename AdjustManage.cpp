@@ -52,7 +52,7 @@ void AdjustManage::init()
         lsline(2, &xV[2*i], &yV[2*i], volAdjustAB[i]);
     }
 */
-
+    
     int     intX[2];
     long    longX[2];
     float   fY[2];
