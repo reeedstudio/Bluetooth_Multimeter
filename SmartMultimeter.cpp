@@ -69,6 +69,12 @@ void SmartMultimeter::init()
 *********************************************************************************************************/
 bool SmartMultimeter::adcIsInv()
 {
+    if(digitalRead(PINADCINV))
+    {
+        //digitalWrite(13, LOW);
+        return 0;
+    }
+    //digitalWrite(13, HIGH);
     return 1;
 }
 
@@ -177,6 +183,7 @@ void SmartMultimeter::genVol()
         ch = ADCHV4;
     }
 
+    
     setSwitch(ch);                                  // set chanel
 
     int valAD = readADC(pinAD);
@@ -191,8 +198,8 @@ void SmartMultimeter::genVol()
     
     vol *= 1000.0;
 
+    //BTMADJUST.volAdjust(pinAD, ch, &vol);
     
-    BTMADJUST.volAdjust(pinAD, ch, &vol);
     vol /= 1000.0;
 
     vol = abs(vol);
@@ -398,6 +405,7 @@ int SmartMultimeter::readADC(int pinAD)
     }
 
     return avt == 64 ? sum>>6 : sum>>7;
+
 }
 
 /*********************************************************************************************************
@@ -406,6 +414,7 @@ int SmartMultimeter::readADC(int pinAD)
 *********************************************************************************************************/
 int SmartMultimeter::readADC(int pinAD, int ch)
 {
+
     setSwitch(ch);
     delay(1);
     int sAD[50];
@@ -417,11 +426,13 @@ int SmartMultimeter::readADC(int pinAD, int ch)
     quickSort(0, 49, sAD);
 
     for(int i = 22; i<38; i++)              // remove the largest two and least tow
+
     {
         sum += sAD[i];
     }
 
     return sum>>4;
+    
 }
 
 /*********************************************************************************************************

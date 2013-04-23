@@ -72,9 +72,7 @@ bool i2cDtaProc()
 void setup()
 {
     SmartVom.init();
-    
     BTMADJUST.init();
-
     blueTooth_Init();
     recvDtaLen = 0;
     
@@ -95,7 +93,6 @@ void loop()
         {
             SmartVom.genAVR();
             blueToothSend(11, SmartVom.dtaSendBt);
-            
             digitalWrite(13, HIGH);
             delay(10);
             digitalWrite(13, LOW);
