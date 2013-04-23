@@ -26,7 +26,7 @@
 #include <Arduino.h>
 
 #define __Debug         0
-#define OHMADJ          1
+#define OHMADJ          0
 
 #if __Debug
 #define __print(X)      Serial.print(X)

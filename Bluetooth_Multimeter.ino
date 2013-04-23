@@ -73,11 +73,8 @@ void setup()
 {
     SmartVom.init();
     
-    Serial.begin(38400);
-    Serial.println("hello world");
     BTMADJUST.init();
-    while(1);
-    
+
     blueTooth_Init();
     recvDtaLen = 0;
     
