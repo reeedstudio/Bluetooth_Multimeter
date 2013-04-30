@@ -1,6 +1,6 @@
 /*
   SmartMultimeter.ino
-  2012 Copyright (c) Seeed Technology Inc.  All right reserved.
+  2013 Copyright (c) Seeed Technology Inc.  All right reserved.
 
   Author:
   Hardware: Albert Miao
@@ -38,6 +38,10 @@ bool getBtDta               = false;
 unsigned char recvDtaLen    = 0;
 unsigned char flagSleep     = 0;
 
+/*********************************************************************************************************
+** Function name: blueToothDtaProc
+** Descriptions:  check if bluetooth get data and deal with it
+*********************************************************************************************************/
 bool blueToothDtaProc()
 {
 
@@ -75,9 +79,10 @@ void setup()
     BTM.init();
     BTMADJUST.init();
     blueTooth_Init();
+    
     recvDtaLen = 0;
-    Wire.begin(5);                
-    Wire.onReceive(receiveEvent); 
+    Wire.begin(5);                          // i2c, for adjustment
+    Wire.onReceive(receiveEvent);           // i2c data receive irq
     
 }
 
