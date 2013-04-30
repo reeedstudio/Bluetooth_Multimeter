@@ -103,7 +103,7 @@ void SmartMultimeter::genDtaBt(float dta, unsigned char rType, unsigned char uni
 *********************************************************************************************************/
 void SmartMultimeter::setR(unsigned char r)
 {
-    for(int i = 8; i<=11; i++)               // All pin floating
+    for(int i = 8; i<=11; i++)                  // All pin floating
     {
         pinMode(i, INPUT);
     }
@@ -296,7 +296,7 @@ void SmartMultimeter::genRes()
 {
     long rCom = 0;
     long rAll[4] = {R4, R3, R2, R1};                // R1 - R3 : 1.8k 18k 180k 1.8M
-
+    unsigned char ch;
     for(int i = 3; i>=0; i--)
     {
         setR(i);
@@ -304,6 +304,7 @@ void SmartMultimeter::genRes()
         if(vadc < 1020)
         {
             rCom = rAll[i];
+            ch   = i;
             break;
         }
         delay(1);
@@ -312,6 +313,10 @@ void SmartMultimeter::genRes()
     int valADC = readADC(A6);
     float uADC = (float)valADC*1.25/1023;
     float rTst = (rCom * uADC)/(3.3 - uADC);
+
+#if OHMADJ
+    BTMADJUST.ohmAdjust(ch, rTst);
+#endif
 
     if(rTst < 1000.0)                   // R
     {

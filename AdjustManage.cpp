@@ -252,6 +252,7 @@ unsigned char AdjustManage::ampAdjust(unsigned char sign, unsigned char ch, floa
 unsigned char AdjustManage::ohmAdjust(unsigned char ch, float *dta)
 {
 
+    *dta = (*dta - ohmAdjustAB[ch][0])/volAdjustAB_n[ch]][1];
 }
 
 
