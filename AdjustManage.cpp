@@ -245,6 +245,15 @@ unsigned char AdjustManage::ampAdjust(unsigned char sign, unsigned char ch, floa
 */
 }
 
+/*********************************************************************************************************
+** Function name: ohmAdjust
+** Descriptions:  ohm Adjust
+*********************************************************************************************************/
+unsigned char AdjustManage::ohmAdjust(unsigned char ch, float *dta)
+{
+
+}
+
 
 AdjustManage BTMADJUST;
 
