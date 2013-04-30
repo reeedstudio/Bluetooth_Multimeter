@@ -35,8 +35,8 @@ private:
     float ampAdjustAB[2][2];
     float ampAdjustAB_n[2][2];
 
-    float mAmpAdjustAB[2][2];
-    float mAmpAdjustAB_n[2][2];
+    float mAmpAdjustAB[2];
+    float mAmpAdjustAB_n[2];
 
     float ohmAdjustAB[4][2];
     
@@ -49,6 +49,7 @@ public:
     unsigned char volAdjust(unsigned char sign, unsigned char ch, float *dta);
     unsigned char ampAdjust(unsigned char sign, unsigned char ch, float *dta); 
     unsigned char ohmAdjust(unsigned char ch, float *dta);
+    unsigned char mampAdjust(unsigned char sign, float *dta);
 
 };
 

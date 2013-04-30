@@ -28,9 +28,11 @@
 #include <Arduino.h>
 
 #define __Debug         0
+
+#define VOLADJ          1
 #define OHMADJ          1
 #define AMPADJ          1
-#define VOLADJ          1
+#define MAMPADJ         1
 
 #if __Debug
 #define __print(X)      Serial.print(X)
@@ -172,12 +174,21 @@
 //data in eeprom
 #define EEPADDRVOLAB    20
 #define EEPADDRVOLAB_N  EEPADDRVOLAB+32
+
 #define EEPADDRVOLX     EEPADDRVOLAB_N+32
 #define EEPADDRVOLY     EEPADDRVOLX+16
 #define EEPADDRVOLY_N   EEPADDRVOLY+32
+
 #define EEPADDROHMX     EEPADDRVOLY_N+32
 #define EEPADDROHMY     EEPADDRVOLX+32
 
+#define EEPADDRAMPX     EEPADDROHMY+32
+#define EEPADDRAMPY     EEPADDRAMPX+16
+#define EEPADDRAMPY_N   EEPADDRAMPY+16
+
+#define EEPADDRMAMPX    EEPADDRAMPY_N+16
+#define EEPADDRMAMPY    EEPADDRMAMPX+8
+#define EEPADDRMAMPY_N  EEPADDRMAMPY+8
 
 //
 #define IFADJUSTED      if(ifAdjust != 0x55)return 0

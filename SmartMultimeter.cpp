@@ -247,15 +247,20 @@ void SmartMultimeter::genAmp()
         {
             iGet += 0.003;
         }
+
+#if MAMPADJ
+        iGet *= 1000.0;
+#endif
     }
     else
     {
         iGet = v1/0.499;
 
         iGet *= 1000.0;
-
+#if AMPADJ
         BTMADJUST.ampAdjust(pinAD, ch, &iGet);
         iGet /= 1000.0;
+#endif
     }
 
     float er = 0.00001;
@@ -315,7 +320,7 @@ void SmartMultimeter::genRes()
     float rTst = (rCom * uADC)/(3.3 - uADC);
 
 #if OHMADJ
-    BTMADJUST.ohmAdjust(ch, rTst);
+    BTMADJUST.ohmAdjust(ch, &rTst);
 #endif
 
     if(rTst < 1000.0)                   // R

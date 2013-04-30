@@ -33,25 +33,6 @@
 *********************************************************************************************************/
 void AdjustManage::init()
 {
-/*
-
-    int xnI2A[4]    = {50, 230, 250, 2000};
-    float ynI2A[4]  = {45, 236, 225, 2070};
-
-    int xI2A[4]     = {50, 200, 250, 2000};
-    float yI2A[4]   = {55, 212, 259, 2090};
-
-    for(int i = 0; i<2; i++)
-    {
-        linearFit(2, &xnI2A[2*i], &ynI2A[2*i], ampAdjustAB_n[i]);
-        linearFit(2, &xI2A[2*i],  &yI2A[2*i],  ampAdjustAB[i]);
-    }
-    for(int i = 0; i<4; i++)
-    {
-        linearFit(2, &xV[2*i], &ynV[2*i], volAdjustAB_n[i]);
-        linearFit(2, &xV[2*i], &yV[2*i], volAdjustAB[i]);
-    }
-*/
 
     int     intX[2];
     long    longX[2];
@@ -72,25 +53,11 @@ void AdjustManage::init()
         EEPM.read(EEPADDRVOLY+8*i, &fY[0], 4);
         EEPM.read(EEPADDRVOLY+8*i+4, &fY[1], 4);
         linearFit(2, intX, fY, volAdjustAB[i]);
-#if 0
-        Serial.print("long X:");
-        Serial.print(intX[0]);
-        Serial.print('\t');
-        Serial.println(intX[1]);
-#endif
         EEPM.read(EEPADDRVOLY_N+8*i, &fY[0], 4);
         EEPM.read(EEPADDRVOLY_N+8*i+4, &fY[1], 4);
         linearFit(2, intX, fY, volAdjustAB_n[i]);
 
     }
-#if 0
-    for(int i = 0; i<4; i++)
-    {
-        Serial.print(volAdjustAB[i][0]);
-        Serial.print('\t');
-        Serial.println(volAdjustAB[i][1]);
-    }
-#endif
 
     // ohm
 #if OHMADJ
@@ -102,6 +69,31 @@ void AdjustManage::init()
         EEPM.read(EEPADDROHMY+8*i+4, &fY[1], 4);
         linearFit(2, intX, fY, ohmAdjustAB[i]);
     }
+#endif
+
+#if AMPADJ
+    for(int i = 0; i<2; i++)
+    {
+        EEPM.read(EEPADDRAMPX+4*i, &intX[0], 2);
+        EEPM.read(EEPADDRAMPX+4*i+2, &intX[1], 2);
+        EEPM.read(EEPADDRAMPY+8*i, &fY[0], 4);
+        EEPM.read(EEPADDRAMPY+8*i+4, &fY[1], 4);
+        linearFit(2, intX, fY, ampAdjustAB[i]);
+        EEPM.read(EEPADDRAMPY_N+8*i, &fY[0], 4);
+        EEPM.read(EEPADDRAMPY_N+8*i+4, &fY[1], 4);
+        linearFit(2, intX, fY, ampAdjustAB_n[i]);
+    }
+#endif
+
+#if MAMPADJ
+        EEPM.read(EEPADDRMAMPX, &intX[0], 2);
+        EEPM.read(EEPADDRMAMPX+2, &intX[1], 2);
+        EEPM.read(EEPADDRMAMPY, &fY[0], 4);
+        EEPM.read(EEPADDRMAMPY+4, &fY[1], 4);
+        linearFit(2, intX, fY, mAmpAdjustAB);
+        EEPM.read(EEPADDRMAMPY_N, &fY[0], 4);
+        EEPM.read(EEPADDRMAMPY_N+4, &fY[1], 4);
+        linearFit(2, intX, fY, mAmpAdjustAB_n);
 #endif
 }
 
@@ -195,54 +187,53 @@ unsigned char AdjustManage::volAdjust(unsigned char sign, unsigned char ch, floa
 unsigned char AdjustManage::ampAdjust(unsigned char sign, unsigned char ch, float *dta)
 {
     IFADJUSTED;
-/*
-        if(A6 == pinAD)
+    if(A6 == sign)
+    {
+        switch(ch)
         {
-            switch(ch)
-            {
-                case ADCHA0:
+            case ADCHA0:
 
-                iGet = (iGet - ampAdjustAB[1][0])/ampAdjustAB[1][1];
-                break;
+            *dta = (*dta - ampAdjustAB[1][0])/ampAdjustAB[1][1];
+            break;
 
-                case ADCHA1:
-                iGet = (iGet - ampAdjustAB[0][0])/ampAdjustAB[0][1];
-                break;
+            case ADCHA1:
+            *dta = (*dta - ampAdjustAB[0][0])/ampAdjustAB[0][1];
+            break;
 
-                case ADCHA2:
-                iGet = (iGet - ampAdjustAB[0][0])/ampAdjustAB[0][1];
+            case ADCHA2:
+            *dta = (*dta - ampAdjustAB[0][0])/ampAdjustAB[0][1];
 
-                break;
+            break;
 
-                default:
+            default:
 
-                ;
-            }
+            ;
         }
-        else if(A7 == pinAD)
+    }
+    else if(A7 == sign)
+    {
+        switch(ch)
         {
-            switch(ch)
-            {
-                case ADCHA0:
+            case ADCHA0:
 
-                iGet = (iGet - ampAdjustAB_n[1][0])/ampAdjustAB_n[1][1];
-                break;
+            *dta = (*dta - ampAdjustAB_n[1][0])/ampAdjustAB_n[1][1];
+            break;
 
-                case ADCHA1:
-                iGet = (iGet - ampAdjustAB_n[0][0])/ampAdjustAB_n[0][1];
-                break;
+            case ADCHA1:
+            *dta = (*dta - ampAdjustAB_n[0][0])/ampAdjustAB_n[0][1];
+            break;
 
-                case ADCHA2:
-                iGet = (iGet - ampAdjustAB_n[0][0])/ampAdjustAB_n[0][1];
+            case ADCHA2:
+            *dta = (*dta - ampAdjustAB_n[0][0])/ampAdjustAB_n[0][1];
 
-                break;
+            break;
 
-                default:
+            default:
 
-                ;
-            }
+            ;
         }
-*/
+    }
+
 }
 
 /*********************************************************************************************************
@@ -251,8 +242,28 @@ unsigned char AdjustManage::ampAdjust(unsigned char sign, unsigned char ch, floa
 *********************************************************************************************************/
 unsigned char AdjustManage::ohmAdjust(unsigned char ch, float *dta)
 {
+    *dta = (*dta - ohmAdjustAB[ch][0])/volAdjustAB_n[ch][1];
+    return 1;
+}
 
-    *dta = (*dta - ohmAdjustAB[ch][0])/volAdjustAB_n[ch]][1];
+/*********************************************************************************************************
+** Function name: mampAdjust
+** Descriptions:  mampAdjust
+*********************************************************************************************************/
+unsigned char AdjustManage::mampAdjust(unsigned char sign, float *dta)
+{
+
+    if(sign == A6)      // +
+    {
+        *dta = (*dta - mAmpAdjustAB[0])/mAmpAdjustAB[1];
+    }
+    else if(sign == A7)     // -
+    {
+        *dta = (*dta - mAmpAdjustAB_n[0])/mAmpAdjustAB_n[1];
+    }
+    else return 0;
+    
+    return 1;
 }
 
 
