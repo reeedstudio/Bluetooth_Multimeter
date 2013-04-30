@@ -43,7 +43,7 @@ unsigned char eeprom_manage::init()
 unsigned char eeprom_manage::e2prom_set(int addr,unsigned char dat)
 {
 
-    if(addr>=256 || addr<0)
+    if(addr>=512 || addr<0)
     return 0;
     EEPROM.write(addr, dat);
     return 1;
@@ -57,7 +57,7 @@ unsigned char eeprom_manage::e2prom_get(int addr)
 {
 
     char dat;
-    if(addr>=256 || addr<0)
+    if(addr>=512 || addr<0)
     return 0;
     return EEPROM.read(addr);
 }
@@ -86,10 +86,10 @@ unsigned char eeprom_manage::read(int addr,void *buffer,int len)
 {
 
     unsigned char *ch;
-    if(addr>=256 || addr<0)
+    if(addr>=512 || addr<0)
     return 0;
-    if(addr+len>=256)
-    len = 256-addr;
+    if(addr+len>=512)
+    len = 512-addr;
     ch = (unsigned char*)buffer;
     for(int i=0;i<len;i++)
     ch[i] = e2prom_get(addr+i);
