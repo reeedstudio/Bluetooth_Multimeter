@@ -43,13 +43,13 @@ void AdjustManage::init()
 
     for(int i = 0; i<2; i++)
     {
-        lsline(2, &xnI2A[2*i], &ynI2A[2*i], ampAdjustAB_n[i]);
-        lsline(2, &xI2A[2*i],  &yI2A[2*i],  ampAdjustAB[i]);
+        linearFit(2, &xnI2A[2*i], &ynI2A[2*i], ampAdjustAB_n[i]);
+        linearFit(2, &xI2A[2*i],  &yI2A[2*i],  ampAdjustAB[i]);
     }
     for(int i = 0; i<4; i++)
     {
-        lsline(2, &xV[2*i], &ynV[2*i], volAdjustAB_n[i]);
-        lsline(2, &xV[2*i], &yV[2*i], volAdjustAB[i]);
+        linearFit(2, &xV[2*i], &ynV[2*i], volAdjustAB_n[i]);
+        linearFit(2, &xV[2*i], &yV[2*i], volAdjustAB[i]);
     }
 */
 
@@ -71,7 +71,7 @@ void AdjustManage::init()
         EEPM.read(EEPADDRVOLX+4*i+2, &intX[1], 2);
         EEPM.read(EEPADDRVOLY+8*i, &fY[0], 4);
         EEPM.read(EEPADDRVOLY+8*i+4, &fY[1], 4);
-        lsline(2, intX, fY, volAdjustAB[i]);
+        linearFit(2, intX, fY, volAdjustAB[i]);
 #if 0
         Serial.print("long X:");
         Serial.print(intX[0]);
@@ -80,7 +80,7 @@ void AdjustManage::init()
 #endif
         EEPM.read(EEPADDRVOLY_N+8*i, &fY[0], 4);
         EEPM.read(EEPADDRVOLY_N+8*i+4, &fY[1], 4);
-        lsline(2, intX, fY, volAdjustAB_n[i]);
+        linearFit(2, intX, fY, volAdjustAB_n[i]);
 
     }
 #if 0
@@ -100,16 +100,16 @@ void AdjustManage::init()
         EEPM.read(EEPADDROHMX+8*i+4, &longX[1], 4);
         EEPM.read(EEPADDROHMY+8*i, &fY[0], 4);
         EEPM.read(EEPADDROHMY+8*i+4, &fY[1], 4);
-        lsline(2, intX, fY, ohmAdjustAB[i]);
+        linearFit(2, intX, fY, ohmAdjustAB[i]);
     }
 #endif
 }
 
 /*********************************************************************************************************
-** Function name: lsline
+** Function name: linearFit
 ** Descriptions:  The method of least squares linear fitting algorithm
 *********************************************************************************************************/
-void AdjustManage::lsline(int n, int *x, float *y, float a[2])
+void AdjustManage::linearFit(int n, int *x, float *y, float a[2])
 {
 
     float ave_x = 0;
@@ -137,10 +137,10 @@ void AdjustManage::lsline(int n, int *x, float *y, float a[2])
 }
 
 /*********************************************************************************************************
-** Function name: lsline
+** Function name: linearFit
 ** Descriptions:  The method of least squares linear fitting algorithm
 *********************************************************************************************************/
-void AdjustManage::lsline(int n, long *x, float *y, float a[2])
+void AdjustManage::linearFit(int n, long *x, float *y, float a[2])
 {
 
     float ave_x = 0;

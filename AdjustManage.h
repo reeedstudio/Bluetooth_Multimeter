@@ -41,13 +41,14 @@ private:
     float ohmAdjustAB[4][2];
     
 private:
-    void lsline(int n, long *x, float *y, float a[2]);
-    void lsline(int n, int *x, float *y, float a[2]);
+    void linearFit(int n, long *x, float *y, float a[2]);      // Linear fit
+    void linearFit(int n, int *x, float *y, float a[2]);       // Linear fit
     
 public:
     void init();
     unsigned char volAdjust(unsigned char sign, unsigned char ch, float *dta);
-    unsigned char ampAdjust(unsigned char sign, unsigned char ch, float *dta);
+    unsigned char ampAdjust(unsigned char sign, unsigned char ch, float *dta); 
+    unsigned char ohmAdjust(unsigned char ch, float *dta);
 
 };
 

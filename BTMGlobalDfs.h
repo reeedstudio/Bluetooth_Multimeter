@@ -29,9 +29,8 @@
 
 #define __Debug         0
 #define OHMADJ          1
-#define AMPADJ            1
-#define VOLADJ            1
-
+#define AMPADJ          1
+#define VOLADJ          1
 
 #if __Debug
 #define __print(X)      Serial.print(X)
