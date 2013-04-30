@@ -189,11 +189,7 @@ void SmartMultimeter::genVol()
 
     int valAD = readADC(pinAD);                        // read adc value
 
-<<<<<<< HEAD
     const float tch[4] = {3.0, 26.6, 1.0, 11.0};          // multiple, {3.0, 26.8, 1.0, 8.0}
-=======
-    float tch[4] = {3.0, 26.6, 1.0, 11.0};          // multiple, {3.0, 26.8, 1.0, 8.0}
->>>>>>> 3fcc575c1b1c48aa3790510aab12b6d233f0c8e7
 
     float vol = valAD*1.25/1023.0;
 
