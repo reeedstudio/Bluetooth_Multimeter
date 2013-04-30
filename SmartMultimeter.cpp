@@ -1,6 +1,6 @@
 /*
   SmartMultimeter.cpp
-  2012 Copyright (c) Seeed Technology Inc.  All right reserved.
+  2013 Copyright (c) Seeed Technology Inc.  All right reserved.
 
   Author:
   Hardware: Albert Miao
@@ -165,6 +165,7 @@ void SmartMultimeter::genVol()
 {
     int pinAD = adcIsInv() ? A7 : A6;           // if > 0
     int ch    = ADCHV1;
+	float er = 0.00001;							// for comare
 
     if(readADC(pinAD, ADCHV1) < 1000)           // choos chanel
     {
@@ -186,13 +187,14 @@ void SmartMultimeter::genVol()
     
     setSwitch(ch);                                  // set chanel
 
-    int valAD = readADC(pinAD);
+    int valAD = readADC(pinAD);						// read adc value
 
-    float tch[4] = {3.0, 24.3, 1.0, 11.0};          // multiple, {3.0, 26.8, 1.0, 8.0}
+    const float tch[4] = {3.0, 26.6, 1.0, 11.0};          // multiple, {3.0, 26.8, 1.0, 8.0}
 
-    float vol = valAD*1.25/1023;
+    float vol = valAD*1.25/1023.0;
     
     vol *= tch[ch];
+<<<<<<< HEAD
 
     float er = 0.00001;
     
@@ -201,6 +203,14 @@ void SmartMultimeter::genVol()
     //BTMADJUST.volAdjust(pinAD, ch, &vol);
     
     vol /= 1000.0;
+=======
+	
+#if VOLADJ
+    vol *= 1000.0;									// turn to mV
+    BTMADJUST.volAdjust(pinAD, ch, &vol);			// Adjustment
+    vol /= 1000.0;									// turn to V
+#endif
+>>>>>>> TestAdjustAmp
 
     vol = abs(vol);
     unsigned char unit = (vol - 1.0)<er ? UNITMV : UNITV;
@@ -448,7 +458,7 @@ void SmartMultimeter::sleepMode()
 }
 #endif
 
-SmartMultimeter SmartVom;
+SmartMultimeter BTM;
 
 /*********************************************************************************************************
   END FILE

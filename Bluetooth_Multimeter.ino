@@ -1,6 +1,6 @@
 /*
   SmartMultimeter.ino
-  2012 Copyright (c) Seeed Technology Inc.  All right reserved.
+  2013 Copyright (c) Seeed Technology Inc.  All right reserved.
 
   Author:
   Hardware: Albert Miao
@@ -32,25 +32,30 @@
 #include "eeprom_manage.h"
 #include "AdjustManage.h"
 
-#define TESTWITHOUTBT   0       // test without bluetooth
+#define TESTWITHOUTBT   0                       // test without bluetooth
 
 bool getBtDta               = false;
 unsigned char recvDtaLen    = 0;
 unsigned char flagSleep     = 0;
 
 /*********************************************************************************************************
-** Function name: checkGoodDtaUart
-** Descriptions:  check if bluetooth get good data
+** Function name: blueToothDtaProc
+** Descriptions:  check if bluetooth get data and deal with it
 *********************************************************************************************************/
-bool checkGoodDtaUart(unsigned char *dta)
+bool blueToothDtaProc()
 {
 
-    if(recvDtaLen == 7 && dta[0] == DATASTART1 && dta[1] == DATASTART2 &&dta[2] == 1 &&dta[4] == 0 && dta[5] == DATAEND1 && dta[6] == DATAEND2)
-    {
-        return 1;
-    }
-    return 0;
-
+    if(!getBtDta) return 0;                     // if get data
+    if(recvDtaLen != 7)return 0;                // check good data
+    
+    BTM.genAVR();
+    blueToothSend(11, BTM.dtaSendBt);
+    //digitalWrite(13, HIGH);
+    //delay(10);
+    //digitalWrite(13, LOW);
+    recvDtaLen = 0;
+    getBtDta   = false;
+    return 1;
 }
 
 /*********************************************************************************************************
@@ -71,13 +76,17 @@ bool i2cDtaProc()
 *********************************************************************************************************/
 void setup()
 {
+<<<<<<< HEAD
     SmartVom.init();
+=======
+    BTM.init();
+>>>>>>> TestAdjustAmp
     BTMADJUST.init();
     blueTooth_Init();
-    recvDtaLen = 0;
     
-    Wire.begin(5);                
-    Wire.onReceive(receiveEvent); 
+    recvDtaLen = 0;
+    Wire.begin(5);                          // i2c, for adjustment
+    Wire.onReceive(receiveEvent);           // i2c data receive irq
     
 }
 
@@ -88,6 +97,7 @@ void setup()
 void loop()
 {
 
+<<<<<<< HEAD
     if(getBtDta) {
         if(checkGoodDtaUart(SmartVom.dtaRevBt))
         {
@@ -102,8 +112,11 @@ void loop()
     }
     
     i2cDtaProc();           // for adjustment;
+=======
+    blueToothDtaProc();                     // bluetooth data
+    i2cDtaProc();                           // for adjustment;
+>>>>>>> TestAdjustAmp
     delay(1);
-    
 }
 
 /*********************************************************************************************************
@@ -114,9 +127,9 @@ void serialEvent()
 {
     while (Serial.available()) {
         // get the new byte:
-        SmartVom.dtaRevBt[recvDtaLen++] = (unsigned char)Serial.read();
+        BTM.dtaRevBt[recvDtaLen++] = (unsigned char)Serial.read();
         
-        if(SmartVom.dtaRevBt[recvDtaLen-1] == DATAEND2 && SmartVom.dtaRevBt[recvDtaLen-2] == DATAEND1) {
+        if(BTM.dtaRevBt[recvDtaLen-1] == DATAEND2 && BTM.dtaRevBt[recvDtaLen-2] == DATAEND1) {
             getBtDta = true;
         }
         

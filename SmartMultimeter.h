@@ -1,6 +1,6 @@
 /*
   SmartMultimeter.h
-  2012 Copyright (c) Seeed Technology Inc.  All right reserved.
+  2013 Copyright (c) Seeed Technology Inc.  All right reserved.
  
   Author: 
   Hardware: Albert Miao 
@@ -61,7 +61,7 @@ class SmartMultimeter
 
 };
 
-extern SmartMultimeter SmartVom;
+extern SmartMultimeter BTM;
 
 #endif
 /*********************************************************************************************************
