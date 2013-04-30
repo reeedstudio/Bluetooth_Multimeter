@@ -94,7 +94,6 @@ void loop()
 {
     blueToothDtaProc();                     // bluetooth data
     i2cDtaProc();                           // for adjustment;
-
     delay(1);
 }
 
