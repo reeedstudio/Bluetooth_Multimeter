@@ -194,23 +194,12 @@ void SmartMultimeter::genVol()
     float vol = valAD*1.25/1023.0;
     
     vol *= tch[ch];
-<<<<<<< HEAD
 
-    float er = 0.00001;
-    
-    vol *= 1000.0;
-
-    //BTMADJUST.volAdjust(pinAD, ch, &vol);
-    
-    vol /= 1000.0;
-=======
-	
 #if VOLADJ
     vol *= 1000.0;									// turn to mV
     BTMADJUST.volAdjust(pinAD, ch, &vol);			// Adjustment
     vol /= 1000.0;									// turn to V
 #endif
->>>>>>> TestAdjustAmp
 
     vol = abs(vol);
     unsigned char unit = (vol - 1.0)<er ? UNITMV : UNITV;

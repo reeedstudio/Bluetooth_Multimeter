@@ -76,11 +76,7 @@ bool i2cDtaProc()
 *********************************************************************************************************/
 void setup()
 {
-<<<<<<< HEAD
-    SmartVom.init();
-=======
     BTM.init();
->>>>>>> TestAdjustAmp
     BTMADJUST.init();
     blueTooth_Init();
     
@@ -96,26 +92,9 @@ void setup()
 *********************************************************************************************************/
 void loop()
 {
-
-<<<<<<< HEAD
-    if(getBtDta) {
-        if(checkGoodDtaUart(SmartVom.dtaRevBt))
-        {
-            SmartVom.genAVR();
-            blueToothSend(11, SmartVom.dtaSendBt);
-            digitalWrite(13, HIGH);
-            delay(10);
-            digitalWrite(13, LOW);
-        }
-        recvDtaLen = 0;
-        getBtDta   = false;
-    }
-    
-    i2cDtaProc();           // for adjustment;
-=======
     blueToothDtaProc();                     // bluetooth data
     i2cDtaProc();                           // for adjustment;
->>>>>>> TestAdjustAmp
+
     delay(1);
 }
 
