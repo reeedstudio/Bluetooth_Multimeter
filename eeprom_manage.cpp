@@ -1,11 +1,11 @@
 /*
   eeprom_manage.cpp
   2013 Copyright (c) Seeed Technology Inc.  All right reserved.
- 
-  Author: 
-  Hardware: Albert Miao 
+
+  Author:
+  Hardware: Albert Miao
   Firmware: Loovee
-  
+
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
   License as published by the Free Software Foundation; either
@@ -20,6 +20,7 @@
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
 #include <EEPROM.h>
 
 #include "eeprom_manage.h"
@@ -27,7 +28,7 @@
 
 /*********************************************************************************************************
 ** Function name: init
-** Descriptions:  init 
+** Descriptions:  init
 *********************************************************************************************************/
 unsigned char eeprom_manage::init()
 {
@@ -42,10 +43,10 @@ unsigned char eeprom_manage::init()
 unsigned char eeprom_manage::e2prom_set(int addr,unsigned char dat)
 {
 
-	if(addr>=256 || addr<0)
-		return 0;
+    if(addr>=256 || addr<0)
+    return 0;
     EEPROM.write(addr, dat);
-	return 1;
+    return 1;
 }
 
 /*********************************************************************************************************
@@ -55,10 +56,10 @@ unsigned char eeprom_manage::e2prom_set(int addr,unsigned char dat)
 unsigned char eeprom_manage::e2prom_get(int addr)
 {
 
-	char dat;
-	if(addr>=256 || addr<0)
-		return 0;
-	return EEPROM.read(addr);
+    char dat;
+    if(addr>=256 || addr<0)
+    return 0;
+    return EEPROM.read(addr);
 }
 
 /*********************************************************************************************************
@@ -68,13 +69,13 @@ unsigned char eeprom_manage::e2prom_get(int addr)
 unsigned char eeprom_manage::write(int addr,void *buffer,int len)
 {
 
-	int sum = 0;
-	unsigned char *ch = (unsigned char*)buffer;
-	for(int i=0; i<len; i++)
-	{
-		sum += e2prom_set(addr+i,ch[i]);
-	}
-	return sum;
+    int sum = 0;
+    unsigned char *ch = (unsigned char*)buffer;
+    for(int i=0; i<len; i++)
+    {
+        sum += e2prom_set(addr+i,ch[i]);
+    }
+    return sum;
 }
 
 /*********************************************************************************************************
@@ -84,16 +85,16 @@ unsigned char eeprom_manage::write(int addr,void *buffer,int len)
 unsigned char eeprom_manage::read(int addr,void *buffer,int len)
 {
 
-	unsigned char *ch;
-	if(addr>=256 || addr<0)
-		return 0;
-	if(addr+len>=256)
-		len = 256-addr;
-	ch = (unsigned char*)buffer;
-	for(int i=0;i<len;i++)
-		ch[i] = e2prom_get(addr+i);
-	return len;
-    
+    unsigned char *ch;
+    if(addr>=256 || addr<0)
+    return 0;
+    if(addr+len>=256)
+    len = 256-addr;
+    ch = (unsigned char*)buffer;
+    for(int i=0;i<len;i++)
+    ch[i] = e2prom_get(addr+i);
+    return len;
+
 }
 
 /*********************************************************************************************************
@@ -103,7 +104,7 @@ unsigned char eeprom_manage::read(int addr,void *buffer,int len)
 unsigned char eeprom_manage::putDta(int addrs, int len, unsigned char *dta)
 {
     if(len <= 0)return 0;
-    
+
     for(int i = 0; i<len; i++)
     {
         EEPROM.write(addrs+i, dta[i]);

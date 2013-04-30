@@ -165,7 +165,7 @@ void SmartMultimeter::genVol()
 {
     int pinAD = adcIsInv() ? A7 : A6;           // if > 0
     int ch    = ADCHV1;
-	float er = 0.00001;							// for comare
+    float er = 0.00001;                            // for comare
 
     if(readADC(pinAD, ADCHV1) < 1000)           // choos chanel
     {
@@ -179,26 +179,26 @@ void SmartMultimeter::genVol()
     {
         ch = ADCHV3;
     }
-    else 
+    else
     {
         ch = ADCHV4;
     }
 
-    
+
     setSwitch(ch);                                  // set chanel
 
-    int valAD = readADC(pinAD);						// read adc value
+    int valAD = readADC(pinAD);                        // read adc value
 
     const float tch[4] = {3.0, 26.6, 1.0, 11.0};          // multiple, {3.0, 26.8, 1.0, 8.0}
 
     float vol = valAD*1.25/1023.0;
-    
+
     vol *= tch[ch];
 
 #if VOLADJ
-    vol *= 1000.0;									// turn to mV
-    BTMADJUST.volAdjust(pinAD, ch, &vol);			// Adjustment
-    vol /= 1000.0;									// turn to V
+    vol *= 1000.0;                                    // turn to mV
+    BTMADJUST.volAdjust(pinAD, ch, &vol);            // Adjustment
+    vol /= 1000.0;                                    // turn to V
 #endif
 
     vol = abs(vol);
@@ -206,7 +206,7 @@ void SmartMultimeter::genVol()
     unit = (pinAD == A7) ? unit + 128 : unit;
     vol = (vol - 1.0)<er ? vol*1000.0 : vol;
     genDtaBt(vol, RETV, unit);
-    
+
 }
 
 /*********************************************************************************************************
@@ -242,7 +242,7 @@ void SmartMultimeter::genAmp()
     if(cmdType == GETMA)
     {
         iGet = v1/(4.399);
-        
+
         if(A7 == pinAD)
         {
             iGet += 0.003;
@@ -251,7 +251,7 @@ void SmartMultimeter::genAmp()
     else
     {
         iGet = v1/0.499;
-        
+
         iGet *= 1000.0;
 
         BTMADJUST.ampAdjust(pinAD, ch, &iGet);
@@ -296,7 +296,7 @@ void SmartMultimeter::genRes()
 {
     long rCom = 0;
     long rAll[4] = {R4, R3, R2, R1};                // R1 - R3 : 1.8k 18k 180k 1.8M
-    
+
     for(int i = 3; i>=0; i--)
     {
         setR(i);
@@ -351,7 +351,7 @@ void SmartMultimeter::genAVR()
 
         case GETR:
         genRes();
-        
+
         default:
         ;
     }
@@ -431,7 +431,7 @@ int SmartMultimeter::readADC(int pinAD, int ch)
     }
 
     return sum>>4;
-    
+
 }
 
 /*********************************************************************************************************

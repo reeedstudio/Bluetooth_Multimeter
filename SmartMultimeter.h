@@ -1,11 +1,11 @@
 /*
   SmartMultimeter.h
   2013 Copyright (c) Seeed Technology Inc.  All right reserved.
- 
-  Author: 
-  Hardware: Albert Miao 
+
+  Author:
+  Hardware: Albert Miao
   Firmware: Loovee
-  
+
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
   License as published by the Free Software Foundation; either
@@ -32,10 +32,10 @@ class SmartMultimeter
     public:
     unsigned char dtaRevBt[30] ;            // data read from bluetooth
     unsigned char dtaSendBt[11];            // data send to bluetooth
-    
+
     private:
 
-    
+
     public:
 
     void setSwitch(unsigned char sw);       // switch adc read channel
@@ -46,14 +46,14 @@ class SmartMultimeter
     void quickSort(int a,int b, int *N);    // quick sort
     int readADC(int pinAD);
     int readADC(int pinAD, int ch);
-    
-    
+
+
     public:
     void init();
     void genVol();                          // generate voltage value, and save to dtaSendBt
     void genAmp();                          // generate ampl  value, V
     void genRes();                          // generate resistance value
-    
+
     void genAVR();
 #if SLEEP_MODE
     void sleepMode();

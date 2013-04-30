@@ -1,11 +1,11 @@
 /*
   eeprom_manage.h
   2013 Copyright (c) Seeed Technology Inc.  All right reserved.
- 
-  Author: 
-  Hardware: Albert Miao 
+
+  Author:
+  Hardware: Albert Miao
   Firmware: Loovee
-  
+
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
   License as published by the Free Software Foundation; either
@@ -25,16 +25,16 @@
 
 class eeprom_manage
 {
-public:
+    public:
     unsigned char dtaI2c[50];
     unsigned char dtaI2cLen;
     unsigned char getDtaI2c;
 
-private:
+    private:
     unsigned char e2prom_set(int addr,unsigned char dat);
     unsigned char e2prom_get(int addr);
- 
-public:
+
+    public:
     unsigned char init();
     unsigned char write(int addr,void *buffer,int len);
     unsigned char read(int addr,void *buffer,int len);

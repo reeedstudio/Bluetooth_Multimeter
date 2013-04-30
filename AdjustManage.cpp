@@ -1,11 +1,11 @@
 /*
   AdjustManage.cpp
   2013 Copyright (c) Seeed Technology Inc.  All right reserved.
- 
-  Author: 
-  Hardware: Albert Miao 
+
+  Author:
+  Hardware: Albert Miao
   Firmware: Loovee
-  
+
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
   License as published by the Free Software Foundation; either
@@ -34,13 +34,13 @@
 void AdjustManage::init()
 {
 /*
-    
+
     int xnI2A[4]    = {50, 230, 250, 2000};
     float ynI2A[4]  = {45, 236, 225, 2070};
-    
+
     int xI2A[4]     = {50, 200, 250, 2000};
     float yI2A[4]   = {55, 212, 259, 2090};
-    
+
     for(int i = 0; i<2; i++)
     {
         lsline(2, &xnI2A[2*i], &ynI2A[2*i], ampAdjustAB_n[i]);
@@ -52,18 +52,18 @@ void AdjustManage::init()
         lsline(2, &xV[2*i], &yV[2*i], volAdjustAB[i]);
     }
 */
-    
+
     int     intX[2];
     long    longX[2];
     float   fY[2];
-    
+
     ifAdjust = EEPROM.read(1);
-    
+
     if(ifAdjust != 0x55)
     {
         return ;
     }
-    
+
     // vol
     for(int i = 0; i<4; i++)
     {
@@ -72,12 +72,12 @@ void AdjustManage::init()
         EEPM.read(EEPADDRVOLY+8*i, &fY[0], 4);
         EEPM.read(EEPADDRVOLY+8*i+4, &fY[1], 4);
         lsline(2, intX, fY, volAdjustAB[i]);
-#if 0    
+#if 0
         Serial.print("long X:");
         Serial.print(intX[0]);
         Serial.print('\t');
         Serial.println(intX[1]);
-#endif 
+#endif
         EEPM.read(EEPADDRVOLY_N+8*i, &fY[0], 4);
         EEPM.read(EEPADDRVOLY_N+8*i+4, &fY[1], 4);
         lsline(2, intX, fY, volAdjustAB_n[i]);
@@ -183,7 +183,7 @@ unsigned char AdjustManage::volAdjust(unsigned char sign, unsigned char ch, floa
     {
         *dta = (*dta - volAdjustAB[adchvNum[ch]][0])/volAdjustAB[adchvNum[ch]][1];
     }
-    
+
     return 1;
 
 }
@@ -201,21 +201,21 @@ unsigned char AdjustManage::ampAdjust(unsigned char sign, unsigned char ch, floa
             switch(ch)
             {
                 case ADCHA0:
-                
+
                 iGet = (iGet - ampAdjustAB[1][0])/ampAdjustAB[1][1];
                 break;
-                
+
                 case ADCHA1:
                 iGet = (iGet - ampAdjustAB[0][0])/ampAdjustAB[0][1];
                 break;
-                
+
                 case ADCHA2:
                 iGet = (iGet - ampAdjustAB[0][0])/ampAdjustAB[0][1];
-                
+
                 break;
-                
+
                 default:
-                
+
                 ;
             }
         }
@@ -224,21 +224,21 @@ unsigned char AdjustManage::ampAdjust(unsigned char sign, unsigned char ch, floa
             switch(ch)
             {
                 case ADCHA0:
-                
+
                 iGet = (iGet - ampAdjustAB_n[1][0])/ampAdjustAB_n[1][1];
                 break;
-                
+
                 case ADCHA1:
                 iGet = (iGet - ampAdjustAB_n[0][0])/ampAdjustAB_n[0][1];
                 break;
-                
+
                 case ADCHA2:
                 iGet = (iGet - ampAdjustAB_n[0][0])/ampAdjustAB_n[0][1];
-                
+
                 break;
-                
+
                 default:
-                
+
                 ;
             }
         }

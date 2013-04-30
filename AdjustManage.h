@@ -2,10 +2,10 @@
   AdjustManage.h
   2013 Copyright (c) Seeed Technology Inc.  All right reserved.
 
-  Author: 
-  Hardware: Albert Miao 
+  Author:
+  Hardware: Albert Miao
   Firmware: Loovee
-  
+
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
   License as published by the Free Software Foundation; either
@@ -25,7 +25,8 @@
 
 class AdjustManage
 {
-private:
+
+    private:
 
     unsigned char ifAdjust;
     float volAdjustAB[4][2];
@@ -34,18 +35,18 @@ private:
     float ampAdjustAB[2][2];
     float ampAdjustAB_n[2][2];
 
-    float mAmpAdjustAB[2][2];    
+    float mAmpAdjustAB[2][2];
     float mAmpAdjustAB_n[2][2];
-    
+
     float ohmAdjustAB[4][2];
 
-public:
+    public:
     void init();
     void lsline(int n, long *x, float *y, float a[2]);
     void lsline(int n, int *x, float *y, float a[2]);
     unsigned char volAdjust(unsigned char sign, unsigned char ch, float *dta);
     unsigned char ampAdjust(unsigned char sign, unsigned char ch, float *dta);
- 
+
 };
 
 extern AdjustManage BTMADJUST;

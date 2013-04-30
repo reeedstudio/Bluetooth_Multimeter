@@ -1,11 +1,11 @@
 /*
   BTMGlobalDfs.h
   2013 Copyright (c) Seeed Technology Inc.  All right reserved.
- 
-  Author: 
-  Hardware: Albert Miao 
+
+  Author:
+  Hardware: Albert Miao
   Firmware: Loovee
-  
+
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
   License as published by the Free Software Foundation; either
@@ -27,8 +27,8 @@
 
 #define __Debug         0
 #define OHMADJ          1
-#define AMPADJ			1
-#define VOLADJ			1
+#define AMPADJ            1
+#define VOLADJ            1
 
 
 #if __Debug
@@ -52,7 +52,7 @@
 #define DATAEND1        0x2f
 #define DATAEND2        0x45
 //pin define
-#define PINADCINV       2               // 
+#define PINADCINV       2               //
 #define PINSWS0         5               // 74hc4051 s0
 #define PINSWS1         6               // 74hc4051 s1
 #define PINSWS2         7               // 74hc4051 s2
@@ -71,7 +71,7 @@
 // choos the chanel of ADC
 #define ADCHV2          0           // 0.34     1.25-3.67
 #define ADCHV4          1           // 0.03076  10-33
-#define ADCHV1          2           // 1        0-1.25 
+#define ADCHV1          2           // 1        0-1.25
 #define ADCHV3          3           // 0.125    3.67-10
 #define ADCHA0          4           // x1
 #define ADCHA1          5           // x10
@@ -85,7 +85,7 @@
 #define TIMESV4         26
 
 
-// bluetooth send 
+// bluetooth send
 #define DTASENDBTSTART1 0
 #define DTASENDBTSTART2 1
 #define DTASENDBTLEN    2
@@ -159,7 +159,7 @@
 #define NSIGN           A7      // Negative sign
 
 // value of adjust standard
-#define VALVOL0         50  
+#define VALVOL0         50
 #define VALVOL1         1200
 #define VALVOL2         1300
 #define VALVOL3         3600

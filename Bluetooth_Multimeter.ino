@@ -47,7 +47,7 @@ bool blueToothDtaProc()
 
     if(!getBtDta) return 0;                     // if get data
     if(recvDtaLen != 7)return 0;                // check good data
-    
+
     BTM.genAVR();
     blueToothSend(11, BTM.dtaSendBt);
     //digitalWrite(13, HIGH);
@@ -79,11 +79,11 @@ void setup()
     BTM.init();
     BTMADJUST.init();
     blueTooth_Init();
-    
+
     recvDtaLen = 0;
     Wire.begin(5);                          // i2c, for adjustment
     Wire.onReceive(receiveEvent);           // i2c data receive irq
-    
+
 }
 
 /*********************************************************************************************************
@@ -101,16 +101,16 @@ void loop()
 ** Function name: serialEvent
 ** Descriptions:  setial Event, get Serial data
 *********************************************************************************************************/
-void serialEvent() 
+void serialEvent()
 {
     while (Serial.available()) {
         // get the new byte:
         BTM.dtaRevBt[recvDtaLen++] = (unsigned char)Serial.read();
-        
+
         if(BTM.dtaRevBt[recvDtaLen-1] == DATAEND2 && BTM.dtaRevBt[recvDtaLen-2] == DATAEND1) {
             getBtDta = true;
         }
-        
+
         if(recvDtaLen > 25)
         {
             recvDtaLen = 0;
@@ -133,7 +133,7 @@ void receiveEvent(int howMany)
             EEPM.getDtaI2c = 1;
         }
     }
-    
+
 }
 /*********************************************************************************************************
   END FILE
