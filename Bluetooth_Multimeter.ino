@@ -44,8 +44,8 @@ bool blueToothDtaProc()
     if(!getBtDta) return 0;                     // if get data
     if(recvDtaLen != 7)return 0;                // check good data
     
-    SmartVom.genAVR();
-    blueToothSend(11, SmartVom.dtaSendBt);
+    BTM.genAVR();
+    blueToothSend(11, BTM.dtaSendBt);
     //digitalWrite(13, HIGH);
     //delay(10);
     //digitalWrite(13, LOW);
@@ -72,13 +72,10 @@ bool i2cDtaProc()
 *********************************************************************************************************/
 void setup()
 {
-    SmartVom.init();
-    
+    BTM.init();
     BTMADJUST.init();
-
     blueTooth_Init();
     recvDtaLen = 0;
-    
     Wire.begin(5);                
     Wire.onReceive(receiveEvent); 
     
@@ -104,9 +101,9 @@ void serialEvent()
 {
     while (Serial.available()) {
         // get the new byte:
-        SmartVom.dtaRevBt[recvDtaLen++] = (unsigned char)Serial.read();
+        BTM.dtaRevBt[recvDtaLen++] = (unsigned char)Serial.read();
         
-        if(SmartVom.dtaRevBt[recvDtaLen-1] == DATAEND2 && SmartVom.dtaRevBt[recvDtaLen-2] == DATAEND1) {
+        if(BTM.dtaRevBt[recvDtaLen-1] == DATAEND2 && BTM.dtaRevBt[recvDtaLen-2] == DATAEND1) {
             getBtDta = true;
         }
         

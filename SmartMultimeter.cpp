@@ -436,7 +436,7 @@ void SmartMultimeter::sleepMode()
 }
 #endif
 
-SmartMultimeter SmartVom;
+SmartMultimeter BTM;
 
 /*********************************************************************************************************
   END FILE

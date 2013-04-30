@@ -61,7 +61,7 @@ class SmartMultimeter
 
 };
 
-extern SmartMultimeter SmartVom;
+extern SmartMultimeter BTM;
 
 #endif
 /*********************************************************************************************************
