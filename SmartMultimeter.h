@@ -26,18 +26,14 @@
 
 class SmartMultimeter
 {
-    public:
+public:
     unsigned char cmdType;                  // cmd type
 
-    public:
+public:
     unsigned char dtaRevBt[30] ;            // data read from bluetooth
     unsigned char dtaSendBt[11];            // data send to bluetooth
 
-    private:
-
-
-    public:
-
+private:
     void setSwitch(unsigned char sw);       // switch adc read channel
     bool adcIsInv();                        // if adc value inverter
     void setR(unsigned char r);
@@ -46,18 +42,17 @@ class SmartMultimeter
     void quickSort(int a,int b, int *N);    // quick sort
     int readADC(int pinAD);
     int readADC(int pinAD, int ch);
-
-
-    public:
-    void init();
     void genVol();                          // generate voltage value, and save to dtaSendBt
     void genAmp();                          // generate ampl  value, V
     void genRes();                          // generate resistance value
-
-    void genAVR();
 #if SLEEP_MODE
     void sleepMode();
 #endif
+    
+public:
+    void init();
+    void genAVR();
+
 
 };
 

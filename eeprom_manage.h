@@ -25,16 +25,16 @@
 
 class eeprom_manage
 {
-    public:
-    unsigned char dtaI2c[50];
+public:
+    unsigned char dtaI2c[40];
     unsigned char dtaI2cLen;
     unsigned char getDtaI2c;
 
-    private:
+private:
     unsigned char e2prom_set(int addr,unsigned char dat);
     unsigned char e2prom_get(int addr);
 
-    public:
+public:
     unsigned char init();
     unsigned char write(int addr,void *buffer,int len);
     unsigned char read(int addr,void *buffer,int len);

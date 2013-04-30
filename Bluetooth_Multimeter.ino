@@ -103,8 +103,8 @@ void loop()
 *********************************************************************************************************/
 void serialEvent()
 {
-    while (Serial.available()) {
-        // get the new byte:
+    while (Serial.available()) 
+    {
         BTM.dtaRevBt[recvDtaLen++] = (unsigned char)Serial.read();
 
         if(BTM.dtaRevBt[recvDtaLen-1] == DATAEND2 && BTM.dtaRevBt[recvDtaLen-2] == DATAEND1) {
