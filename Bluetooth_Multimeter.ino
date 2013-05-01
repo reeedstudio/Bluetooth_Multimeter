@@ -40,6 +40,8 @@ bool getBtDta               = false;
 unsigned char recvDtaLen    = 0;
 unsigned char flagSleep     = 0;
 
+unsigned char getRequest    = 0;                // get request from master
+
 /*********************************************************************************************************
 ** Function name: blueToothDtaProc
 ** Descriptions:  check if bluetooth get data and deal with it
@@ -69,6 +71,12 @@ bool i2cDtaProc()
     if(!EEPM.getDtaI2c)return 0;
     EEPM.getDtaI2c = 0;
     EEPM.dtaI2cLen = 0;
+    
+    if(getRequest)
+    {
+        getRequest = 0;
+        Wire.write("ok");       
+    }
     return EEPM.putDta(EEPM.dtaI2c[2], EEPM.dtaI2c[3], &EEPM.dtaI2c[4]);
 }
 
@@ -85,6 +93,7 @@ void setup()
     recvDtaLen = 0;
     Wire.begin(5);                          // i2c, for adjustment
     Wire.onReceive(receiveEvent);           // i2c data receive irq
+    Wire.onRequest(requestEvent);           // register event
 
 }
 
@@ -135,7 +144,15 @@ void receiveEvent(int howMany)
             EEPM.getDtaI2c = 1;
         }
     }
+}
 
+/*********************************************************************************************************
+** Function name: requestEvent
+** Descriptions:  request from master
+*********************************************************************************************************/
+void requestEvent()
+{
+    getRequest = 1; 
 }
 /*********************************************************************************************************
   END FILE
