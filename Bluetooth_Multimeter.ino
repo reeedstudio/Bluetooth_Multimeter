@@ -71,12 +71,6 @@ bool i2cDtaProc()
     if(!EEPM.getDtaI2c)return 0;
     EEPM.getDtaI2c = 0;
     EEPM.dtaI2cLen = 0;
-    
-    if(getRequest)
-    {
-        getRequest = 0;
-        Wire.write("ok");       
-    }
     return EEPM.putDta(EEPM.dtaI2c[2], EEPM.dtaI2c[3], &EEPM.dtaI2c[4]);
 }
 
@@ -152,7 +146,7 @@ void receiveEvent(int howMany)
 *********************************************************************************************************/
 void requestEvent()
 {
-    getRequest = 1; 
+    Wire.write("OK");
 }
 /*********************************************************************************************************
   END FILE
