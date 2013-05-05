@@ -46,6 +46,7 @@ void AdjustManage::init()
     }
 
     // vol
+#if VOLADJ
     for(int i = 0; i<4; i++)
     {
         EEPM.read(EEPADDRVOLX+4*i, &intX[0], 2);
@@ -59,6 +60,7 @@ void AdjustManage::init()
 
     }
 
+#endif
     // ohm
 #if OHMADJ
     for(int i = 0; i<4; i++)
@@ -95,6 +97,19 @@ void AdjustManage::init()
         EEPM.read(EEPADDRMAMPY_N+4, &fY[1], 4);
         linearFit(2, intX, fY, mAmpAdjustAB_n);
 #endif
+}
+
+/*********************************************************************************************************
+** Function name: lclearEEPROM
+** Descriptions:  clear all eeprom
+*********************************************************************************************************/
+void AdjustManage::clearEEPROM()
+{
+
+    for(int i = 0; i<512; i++)
+    {
+        EEPROM.write(i, 0);
+    }
 }
 
 /*********************************************************************************************************

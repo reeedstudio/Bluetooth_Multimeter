@@ -46,8 +46,9 @@ private:
     
 public:
     void init();
+    void clearEEPROM();
     unsigned char volAdjust(unsigned char sign, unsigned char ch, float *dta);
-    unsigned char ampAdjust(unsigned char sign, unsigned char ch, float *dta); 
+    unsigned char ampAdjust(unsigned char sign, unsigned char ch, float *dta);
     unsigned char ohmAdjust(unsigned char ch, float *dta);
     unsigned char mampAdjust(unsigned char sign, float *dta);
 
