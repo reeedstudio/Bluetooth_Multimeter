@@ -29,7 +29,7 @@
 
 #define __Debug         0
 
-#define VOLADJ          0
+#define VOLADJ          1
 #define OHMADJ          0
 #define AMPADJ          0
 #define MAMPADJ         0
