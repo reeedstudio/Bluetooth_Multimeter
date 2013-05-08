@@ -43,6 +43,7 @@
 #endif
 
 #define SLEEP_MODE      0
+
 #define FRESHRATE       300             // ms
 
 #define VREF            (float)1.25     // adc voltage reference
@@ -55,7 +56,7 @@
 #define DATAEND1        0x2f
 #define DATAEND2        0x45
 //pin define
-#define PINADCINV       2               //
+#define PINADCINV       2               // 
 #define PINSWS0         5               // 74hc4051 s0
 #define PINSWS1         6               // 74hc4051 s1
 #define PINSWS2         7               // 74hc4051 s2
@@ -72,13 +73,13 @@
 #define R4              1800000
 
 // choos the chanel of ADC
-#define ADCHV2          0           // 0.34     1.25-3.67
-#define ADCHV4          1           // 0.03076  10-33
-#define ADCHV1          2           // 1        0-1.25
-#define ADCHV3          3           // 0.125    3.67-10
-#define ADCHA0          4           // x1
-#define ADCHA1          5           // x10
-#define ADCHA2          6           // x100
+#define ADCHV2          0               // 0.34     1.25-3.67
+#define ADCHV4          1               // 0.03076  10-33
+#define ADCHV1          2               // 1        0-1.25
+#define ADCHV3          3               // 0.125    3.67-10
+#define ADCHA0          4               // x1
+#define ADCHA1          5               // x10
+#define ADCHA2          6               // x100
 #define ADCHR           7
 
 //
@@ -86,7 +87,6 @@
 #define TIMESV2         3
 #define TIMESV3         8
 #define TIMESV4         26
-
 
 // bluetooth send
 #define DTASENDBTSTART1 0
@@ -158,9 +158,9 @@
 #define END2            0x45
 
 //
-#define PSIGN           A6      // Positive sign
-#define NSIGN           A7      // Negative sign
-
+#define PSIGN           A6                  // Positive sign
+#define NSIGN           A7                  // Negative sign
+        
 // value of adjust standard
 #define VALVOL0         50
 #define VALVOL1         1200
@@ -188,7 +188,6 @@
 #define EEPADDRMAMPY    EEPADDRMAMPX+32
 #define EEPADDRMAMPY_N  EEPADDRMAMPY+32
 
-//
 #define IFADJUSTED      if(ifAdjust != 0x55)return 0
 
 #endif

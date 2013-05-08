@@ -54,9 +54,11 @@ bool blueToothDtaProc()
 
     BTM.genAVR();
     blueToothSend(11, BTM.dtaSendBt);
-    digitalWrite(13, HIGH);
-    delay(10);
+    
+    digitalWrite(13, HIGH);                     // led shine
+    delay(5);
     digitalWrite(13, LOW);
+    
     recvDtaLen = 0;
     getBtDta   = false;
     return 1;
@@ -123,7 +125,8 @@ void serialEvent()
     {
         BTM.dtaRevBt[recvDtaLen++] = (unsigned char)Serial.read();
 
-        if(BTM.dtaRevBt[recvDtaLen-1] == DATAEND2 && BTM.dtaRevBt[recvDtaLen-2] == DATAEND1) {
+        if(BTM.dtaRevBt[recvDtaLen-1] == DATAEND2 && BTM.dtaRevBt[recvDtaLen-2] == DATAEND1) 
+        {
             getBtDta = true;
         }
 

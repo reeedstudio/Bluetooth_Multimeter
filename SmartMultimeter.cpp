@@ -451,9 +451,9 @@ int SmartMultimeter::readADC(int pinAD, int ch)
 #if SLEEP_MODE
 void SmartMultimeter::sleepMode()
 {
-    int sleepTime = FRESHRATE - 100;
+    //int sleepTime = FRESHRATE - 100;
     sleep.pwrDownMode();            //set sleep mode pwrDownMode idleMode
-    sleep.sleepDelay(sleepTime);    //sleep for: sleepTime
+    sleep.sleepDelay(80);    //sleep for: sleepTime
 }
 #endif
 
