@@ -23,8 +23,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include <Wire.h>
-#include <I2C_Uart.h>
-#include <Sleep_n0m1.h>
+//#include <I2C_Uart.h>
+//#include <Sleep_n0m1.h>
 #include <TimerOne.h>
 #include <EEPROM.h>
 
