@@ -68,16 +68,20 @@ bool blueToothDtaProc()
 *********************************************************************************************************/
 bool i2cDtaProc()
 {
+
     if(!EEPM.getDtaI2c)return 0;
     EEPM.getDtaI2c = 0;
     EEPM.dtaI2cLen = 0;
-    
+#if 0  
     if(EEPM.dtaI2c[2] == 0x55 && EEPM.dtaI2c[3] == 0x55 && EEPM.dtaI2c[4] == 0x55)      // clear eeprom
     {
         BTMADJUST.clearEEPROM();
         return 1;
     }
     return EEPM.putDta(EEPM.dtaI2c[2], EEPM.dtaI2c[3], &EEPM.dtaI2c[4]);
+#else
+    return 1;
+#endif
 }
 
 /*********************************************************************************************************
@@ -86,7 +90,7 @@ bool i2cDtaProc()
 *********************************************************************************************************/
 void setup()
 {
- //   Serial.begin(38400);
+
     BTM.init();
     BTMADJUST.init();
     blueTooth_Init();
