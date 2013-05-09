@@ -268,11 +268,11 @@ unsigned char AdjustManage::ohmAdjust(unsigned char ch, float *dta)
 unsigned char AdjustManage::mampAdjust(unsigned char sign, float *dta)
 {
 
-    if(sign == A6)      // +
+    if(sign == A6)              // +
     {
         *dta = (*dta - mAmpAdjustAB[0])/mAmpAdjustAB[1];
     }
-    else if(sign == A7)     // -
+    else if(sign == A7)         // -
     {
         *dta = (*dta - mAmpAdjustAB_n[0])/mAmpAdjustAB_n[1];
     }

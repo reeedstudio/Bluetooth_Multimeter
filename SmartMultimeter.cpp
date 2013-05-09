@@ -306,7 +306,7 @@ void SmartMultimeter::genRes()
     {
         setR(i);
         int vadc = readADC(A6, ADCHR);
-        if(vadc < 1020)
+        if(vadc < 1023)
         {
             rCom = rAll[i];
             ch   = i;
@@ -319,7 +319,7 @@ void SmartMultimeter::genRes()
     float uADC = (float)valADC*1.25/1023;
     float rTst = (rCom * uADC)/(3.3 - uADC);
 
-#if OHMADJ
+#if OHMADJ&0
     BTMADJUST.ohmAdjust(ch, &rTst);
 #endif
 
@@ -394,7 +394,7 @@ void SmartMultimeter::setSwitch(unsigned char sw)
 *********************************************************************************************************/
 int SmartMultimeter::readADC(int pinAD)
 {
-
+#if 0
     int sAD[AVETIME];
     long sum = 0;
     for(int i = 0; i<AVETIME; i++)
@@ -414,6 +414,27 @@ int SmartMultimeter::readADC(int pinAD)
     }
 
     return avt == 64 ? sum>>6 : sum>>7;
+#else
+     int sAD[AVETIME];
+    long sum = 0;
+    for(int i = 0; i<AVETIME; i++)
+    {
+        sAD[i] = analogRead(pinAD);
+    }
+    quickSort(0, AVETIME-1, sAD);
+
+
+
+
+
+
+    for(int i = AVETIME/4; i<(AVETIME-AVETIME/4); i++)       // remove the largest two and least tow
+    {
+        sum += sAD[i];
+    }
+
+    return sum/(AVETIME/2);
+#endif
 
 }
 
@@ -423,8 +444,9 @@ int SmartMultimeter::readADC(int pinAD)
 *********************************************************************************************************/
 int SmartMultimeter::readADC(int pinAD, int ch)
 {
-
+#if 0
     setSwitch(ch);
+
     delay(1);
     int sAD[50];
     long sum = 0;
@@ -441,7 +463,25 @@ int SmartMultimeter::readADC(int pinAD, int ch)
     }
 
     return sum>>4;
+#else
+    setSwitch(ch);
 
+    delay(1);
+    int sAD[50];
+    long sum = 0;
+    for(int i = 0; i<50; i++)               // read 50 data
+    {
+        sAD[i] = analogRead(pinAD);
+    }
+    quickSort(0, 49, sAD);
+
+    for(int i = 20; i<40; i++)              // remove the largest two and least tow
+    {
+        sum += sAD[i];
+    }
+
+    return sum/20;
+#endif
 }
 
 /*********************************************************************************************************

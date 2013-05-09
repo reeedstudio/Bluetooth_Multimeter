@@ -49,8 +49,17 @@ unsigned char getRequest    = 0;                // get request from master
 bool blueToothDtaProc()
 {
 
-    if(!getBtDta) return 0;                     // if get data
-    if(recvDtaLen != 7)return 0;                // check good data
+    if(!getBtDta)
+    {
+        //getBtDta = 0;
+        return 0;                               // if get data
+    }
+    
+    if(recvDtaLen != 7)
+    {
+        //recvDtaLen = 0;
+        return 0;                               // check good data
+    }
 
     BTM.genAVR();
     blueToothSend(11, BTM.dtaSendBt);
@@ -62,6 +71,21 @@ bool blueToothDtaProc()
     recvDtaLen = 0;
     getBtDta   = false;
     return 1;
+}
+
+/*********************************************************************************************************
+** Function name: checkGoodDta
+** Descriptions:  check if bluetooth get good data
+*********************************************************************************************************/
+bool checkGoodDta(unsigned char *dta)
+{
+
+    if(recvDtaLen == 7 && dta[0] == DATASTART1 && dta[1] == DATASTART2 &&dta[2] == 1 &&dta[4] == 0 && dta[5] == DATAEND1 && dta[6] == DATAEND2)
+    {
+        return 1;
+    }
+    return 0;
+
 }
 
 /*********************************************************************************************************
@@ -110,7 +134,24 @@ void setup()
 *********************************************************************************************************/
 void loop()
 {
+#if 0
     blueToothDtaProc();                     // bluetooth data
+#else
+    if(getBtDta) {
+        if(checkGoodDta(BTM.dtaRevBt))
+        {
+            BTM.genAVR();
+           // dispBtDta();
+            blueToothSend(11, BTM.dtaSendBt);
+          
+            digitalWrite(13, HIGH);
+            delay(10);
+            digitalWrite(13, LOW);
+        }
+        recvDtaLen = 0;
+        getBtDta   = false;
+    }
+#endif
     i2cDtaProc();                           // for adjustment;
     delay(1);
 }
